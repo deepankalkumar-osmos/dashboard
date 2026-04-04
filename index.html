@@ -1,0 +1,727 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Product & Tech | Executive Dashboard</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --navy: #0B1829;
+    --navy2: #142135;
+    --gold: #C6943A;
+    --gold-lt: #E8C07A;
+    --cream: #F5F2EC;
+    --cream2: #EDE8DC;
+    --white: #FFFFFF;
+    --text: #0B1829;
+    --text2: #455468;
+    --text3: #7A8A9A;
+    --border: rgba(11,24,41,0.09);
+    --border2: rgba(11,24,41,0.16);
+    --green: #166534;
+    --green-bg: #DCFCE7;
+    --red: #991B1B;
+    --red-bg: #FEE2E2;
+    --amber: #92400E;
+    --amber-bg: #FEF3C7;
+    --blue: #1E3A5F;
+    --blue-bg: #DBEAFE;
+  }
+
+  body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--text); min-height: 100vh; }
+
+  /* ── HEADER ── */
+  .header {
+    background: var(--navy);
+    padding: 0 48px;
+    height: 72px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-bottom: 2px solid var(--gold);
+  }
+  .header-brand { display: flex; align-items: center; gap: 16px; }
+  .header-brand .dot { width: 8px; height: 8px; background: var(--gold); border-radius: 50%; }
+  .header-brand h1 { font-family: 'Playfair Display', serif; font-size: 20px; font-weight: 500; color: #fff; letter-spacing: 0.02em; }
+  .header-brand span { font-size: 11px; color: rgba(255,255,255,0.35); text-transform: uppercase; letter-spacing: 0.14em; border-left: 1px solid rgba(255,255,255,0.15); padding-left: 16px; }
+  .header-right { display: flex; align-items: center; gap: 24px; }
+  .header-date { text-align: right; }
+  .header-date .lbl { font-size: 10px; color: rgba(255,255,255,0.35); text-transform: uppercase; letter-spacing: 0.1em; }
+  .header-date .val { font-size: 13px; font-weight: 500; color: var(--gold-lt); margin-top: 2px; }
+  .live-badge { display: flex; align-items: center; gap: 6px; background: rgba(255,255,255,0.06); border: 0.5px solid rgba(255,255,255,0.12); border-radius: 20px; padding: 5px 12px; }
+  .live-dot { width: 6px; height: 6px; background: #22C55E; border-radius: 50%; animation: blink 2s infinite; }
+  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
+  .live-badge span { font-size: 11px; color: rgba(255,255,255,0.5); text-transform: uppercase; letter-spacing: 0.1em; }
+
+  /* ── STATUS BAR ── */
+  .status-bar {
+    background: var(--navy2);
+    padding: 7px 48px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 11px;
+    color: rgba(255,255,255,0.35);
+    letter-spacing: 0.06em;
+  }
+  .status-bar a { color: var(--gold); text-decoration: none; margin-left: auto; }
+  .status-bar a:hover { text-decoration: underline; }
+  #statusMsg { color: rgba(255,255,255,0.45); }
+
+  /* ── MAIN ── */
+  .main { padding: 36px 48px 48px; max-width: 1400px; }
+
+  /* ── SECTION ── */
+  .section { margin-bottom: 36px; }
+  .section-head {
+    display: flex; align-items: center; gap: 10px;
+    margin-bottom: 16px;
+  }
+  .section-head .tag {
+    font-size: 10px; font-weight: 500; text-transform: uppercase;
+    letter-spacing: 0.14em; color: var(--text3);
+    padding-bottom: 6px;
+    border-bottom: 2px solid var(--gold);
+  }
+  .section-head .line { flex: 1; height: 0.5px; background: var(--border2); }
+
+  /* ── METRIC CARDS ── */
+  .cards { display: grid; gap: 14px; }
+  .cards-4 { grid-template-columns: repeat(4, 1fr); }
+  .cards-3 { grid-template-columns: repeat(3, 1fr); }
+  .cards-2 { grid-template-columns: repeat(2, 1fr); }
+  .cards-5 { grid-template-columns: repeat(5, 1fr); }
+
+  .card {
+    background: var(--white);
+    border: 0.5px solid var(--border);
+    border-radius: 10px;
+    padding: 18px 20px 16px;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.15s, box-shadow 0.15s;
+  }
+  .card:hover { transform: translateY(-1px); box-shadow: 0 6px 24px rgba(11,24,41,0.07); }
+  .card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--navy);
+    border-radius: 10px 10px 0 0;
+  }
+  .card.gold::before { background: var(--gold); }
+  .card.green::before { background: #16A34A; }
+  .card.red::before { background: #DC2626; }
+  .card.blue::before { background: #2563EB; }
+
+  .card-label {
+    font-size: 10px; font-weight: 500; text-transform: uppercase;
+    letter-spacing: 0.1em; color: var(--text3); margin-bottom: 10px; line-height: 1.5;
+  }
+  .card-value {
+    font-family: 'Playfair Display', serif;
+    font-size: 36px; font-weight: 500; color: var(--text); line-height: 1;
+  }
+  .card-sub { font-size: 11px; color: var(--text3); margin-top: 6px; font-style: italic; }
+
+  .badge {
+    display: inline-block; padding: 2px 8px;
+    border-radius: 4px; font-size: 11px; font-weight: 500; margin-top: 8px;
+  }
+  .badge-green { background: var(--green-bg); color: var(--green); }
+  .badge-red   { background: var(--red-bg);   color: var(--red); }
+  .badge-amber { background: var(--amber-bg); color: var(--amber); }
+  .badge-blue  { background: var(--blue-bg);  color: var(--blue); }
+
+  /* ── CHART CARD ── */
+  .chart-card {
+    background: var(--white);
+    border: 0.5px solid var(--border);
+    border-radius: 10px;
+    padding: 22px 24px;
+  }
+  .chart-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 14px; font-weight: 500; color: var(--text);
+    margin-bottom: 18px; padding-bottom: 12px;
+    border-bottom: 0.5px solid var(--border2);
+  }
+  .chart-wrap { position: relative; width: 100%; }
+
+  /* ── AVG ROW ── */
+  .avg-row { display: grid; grid-template-columns: repeat(3,1fr); gap: 14px; }
+  .avg-item {
+    background: var(--cream2); border-radius: 8px;
+    padding: 16px 18px; text-align: center;
+  }
+  .avg-lbl { font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text3); margin-bottom: 8px; }
+  .avg-val { font-family: 'Playfair Display', serif; font-size: 28px; font-weight: 500; color: var(--text); }
+  .avg-unit { font-size: 11px; color: var(--text3); margin-top: 4px; }
+
+  /* ── DIVIDER TABLE ── */
+  .summary-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .summary-table th {
+    font-size: 10px; font-weight: 500; text-transform: uppercase;
+    letter-spacing: 0.1em; color: var(--text3);
+    padding: 8px 12px; text-align: left;
+    border-bottom: 1px solid var(--border2);
+    background: var(--cream);
+  }
+  .summary-table th:last-child { text-align: right; }
+  .summary-table td {
+    padding: 10px 12px; border-bottom: 0.5px solid var(--border);
+    color: var(--text2); vertical-align: middle;
+  }
+  .summary-table td:last-child { text-align: right; font-family: 'Playfair Display', serif; font-size: 16px; color: var(--text); }
+  .summary-table tr:last-child td { border-bottom: none; }
+  .summary-table tr:hover td { background: var(--cream); }
+
+  /* ── ERROR ── */
+  .error-banner {
+    background: var(--red-bg); border: 0.5px solid #FCA5A5;
+    color: var(--red); padding: 14px 20px; border-radius: 8px;
+    font-size: 13px; margin-bottom: 24px; display: none; line-height: 1.6;
+  }
+
+  /* ── LOADING ── */
+  .loading-screen {
+    position: fixed; inset: 0; background: var(--navy);
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center; z-index: 999;
+    transition: opacity 0.6s;
+  }
+  .loading-screen .brand { font-family: 'Playfair Display', serif; font-size: 24px; color: #fff; margin-bottom: 6px; }
+  .loading-screen .sub { font-size: 11px; color: rgba(255,255,255,0.3); text-transform: uppercase; letter-spacing: 0.14em; margin-bottom: 36px; }
+  .loader-track { width: 180px; height: 2px; background: rgba(255,255,255,0.08); border-radius: 2px; overflow: hidden; }
+  .loader-fill { height: 100%; background: var(--gold); animation: ld 2.2s ease forwards; border-radius: 2px; }
+  @keyframes ld { from{width:0} to{width:100%} }
+  .loading-screen .msg { font-size: 11px; color: rgba(255,255,255,0.3); margin-top: 14px; letter-spacing: 0.06em; }
+
+  /* ── FOOTER ── */
+  .footer {
+    background: var(--navy); padding: 14px 48px;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .footer p { font-size: 11px; color: rgba(255,255,255,0.25); letter-spacing: 0.06em; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 1100px) {
+    .cards-5 { grid-template-columns: repeat(3,1fr); }
+    .cards-4 { grid-template-columns: repeat(2,1fr); }
+  }
+  @media (max-width: 700px) {
+    .main { padding: 24px 16px; }
+    .header { padding: 0 16px; }
+    .status-bar { padding: 7px 16px; }
+    .footer { padding: 14px 16px; }
+    .cards-4, .cards-3, .cards-5 { grid-template-columns: repeat(2,1fr); }
+    .cards-2 { grid-template-columns: 1fr; }
+    .avg-row { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- LOADING -->
+<div class="loading-screen" id="loader">
+  <div class="brand">Product & Tech</div>
+  <div class="sub">Executive Dashboard</div>
+  <div class="loader-track"><div class="loader-fill"></div></div>
+  <div class="msg" id="loaderMsg">Fetching live data…</div>
+</div>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="header-brand">
+    <div class="dot"></div>
+    <h1>Product & Tech</h1>
+    <span>Support Operations</span>
+  </div>
+  <div class="header-right">
+    <div class="header-date">
+      <div class="lbl">Report Date</div>
+      <div class="val" id="reportDate">—</div>
+    </div>
+    <div class="live-badge">
+      <div class="live-dot"></div>
+      <span>Live</span>
+    </div>
+  </div>
+</div>
+
+<!-- STATUS BAR -->
+<div class="status-bar">
+  <span id="statusMsg">Loading…</span>
+  <a href="https://docs.google.com/spreadsheets/d/1QntVLDgXonqk7gHe-MkHhZJC1hq9KzTPFHAVhH4m5DY/edit#gid=804363926" target="_blank">View Source Sheet ↗</a>
+</div>
+
+<!-- MAIN -->
+<div class="main">
+  <div class="error-banner" id="errorBanner"></div>
+
+  <!-- ═══════════════════════════════════════════
+       SECTION 1 — TICKET OVERVIEW
+       To add more cards: copy a .card block below
+       and update the id and label
+  ════════════════════════════════════════════ -->
+  <div class="section">
+    <div class="section-head">
+      <div class="tag">Ticket Overview</div>
+      <div class="line"></div>
+    </div>
+    <div class="cards cards-4">
+
+      <div class="card">
+        <div class="card-label">Tickets Created</div>
+        <div class="card-value" id="mTicketCreated">—</div>
+        <div class="card-sub">Excl. Vitthal Samant</div>
+      </div>
+
+      <div class="card gold">
+        <div class="card-label">Sev 1/2/3 Tickets</div>
+        <div class="card-value" id="mSev123">—</div>
+        <div class="card-sub">Mission Critical + Non-Severity</div>
+      </div>
+
+      <div class="card">
+        <div class="card-label">Sev 4 Tickets</div>
+        <div class="card-value" id="mSev4">—</div>
+        <div class="card-sub">Low severity</div>
+      </div>
+
+      <div class="card green">
+        <div class="card-label">Tickets Closed</div>
+        <div class="card-value" id="mClosed">—</div>
+        <div class="card-sub">Status = Closed</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       SECTION 2 — ESCALATION
+       To add more escalation metrics: copy a card
+       and update id + label
+  ════════════════════════════════════════════ -->
+  <div class="section">
+    <div class="section-head">
+      <div class="tag">Escalation</div>
+      <div class="line"></div>
+    </div>
+    <div class="cards cards-4">
+
+      <div class="card red">
+        <div class="card-label">Escalated Tickets</div>
+        <div class="card-value" id="mEscalated">—</div>
+        <div class="card-sub">Sev 1/2/3 + BF = YES</div>
+      </div>
+
+      <div class="card">
+        <div class="card-label">Escalation %</div>
+        <div class="card-value" id="mEscPct">—</div>
+        <div class="card-sub">Escalated ÷ Sev 1/2/3</div>
+      </div>
+
+      <div class="card blue">
+        <div class="card-label">Raised to Tech</div>
+        <div class="card-value" id="mRaisedTech">—</div>
+        <div class="card-sub">Excl. Vitthal, Col AK not null</div>
+      </div>
+
+      <div class="card">
+        <div class="card-label">Tech Escalation %</div>
+        <div class="card-value" id="mTechEscPct">—</div>
+        <div class="card-sub">Escalated by Tech ÷ Raised Sev 1/2/3</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       SECTION 3 — RAISED TO TECH BREAKDOWN
+       To add more breakdowns: copy a card block
+  ════════════════════════════════════════════ -->
+  <div class="section">
+    <div class="section-head">
+      <div class="tag">Raised to Tech — Breakdown</div>
+      <div class="line"></div>
+    </div>
+    <div class="cards cards-4">
+
+      <div class="card gold">
+        <div class="card-label">Raised to Tech — Sev 1/2/3</div>
+        <div class="card-value" id="mRaisedSev123">—</div>
+        <div class="card-sub">Excl. Vitthal, AK not null, Sev 1/2/3</div>
+      </div>
+
+      <div class="card">
+        <div class="card-label">Raised to Tech — Sev 4</div>
+        <div class="card-value" id="mRaisedSev4">—</div>
+        <div class="card-sub">Excl. Vitthal, AK not null, Sev 4</div>
+      </div>
+
+      <div class="card green">
+        <div class="card-label">Resolved by Tech</div>
+        <div class="card-value" id="mResolvedTech">—</div>
+        <div class="card-sub">Excl. Vitthal, AK not null, AI col ≠ " -"</div>
+      </div>
+
+      <div class="card red">
+        <div class="card-label">Escalated by Tech</div>
+        <div class="card-value" id="mEscByTech">—</div>
+        <div class="card-sub">Excl. Vitthal, AK not null, Sev 1/2/3, BF = YES</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       SECTION 4 — AVERAGE RESOLUTION TIMES
+       To add more averages: copy an avg-item block
+  ════════════════════════════════════════════ -->
+  <div class="section">
+    <div class="section-head">
+      <div class="tag">Average Resolution Times</div>
+      <div class="line"></div>
+    </div>
+    <div class="avg-row">
+
+      <div class="avg-item">
+        <div class="avg-lbl">Avg First Response on Ticket</div>
+        <div class="avg-val" id="mAvgFR">—</div>
+        <div class="avg-unit">hrs · Col AS</div>
+      </div>
+
+      <div class="avg-item">
+        <div class="avg-lbl">Ag Resolution on Ticket</div>
+        <div class="avg-val" id="mAvgAR">—</div>
+        <div class="avg-unit">hrs · Col AR</div>
+      </div>
+
+      <div class="avg-item">
+        <div class="avg-lbl">Avg Tech Resolution</div>
+        <div class="avg-val" id="mAvgAU">—</div>
+        <div class="avg-unit">hrs · Col AU</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       SECTION 5 — OTHER TICKET METRICS
+       To add more rows to this table: copy a <tr>
+       block inside the tbody and update the id
+  ════════════════════════════════════════════ -->
+  <div class="section">
+    <div class="section-head">
+      <div class="tag">Other Ticket Metrics</div>
+      <div class="line"></div>
+    </div>
+    <div class="chart-card">
+      <table class="summary-table">
+        <thead>
+          <tr>
+            <th>Metric</th>
+            <th>Definition</th>
+            <th>Count</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Reopen Tickets</td>
+            <td style="color:var(--text3);font-size:12px;">Sum of Column R</td>
+            <td id="mReopen">—</td>
+          </tr>
+          <tr>
+            <td>Bug Found</td>
+            <td style="color:var(--text3);font-size:12px;">Col O includes "Bug"</td>
+            <td id="mBug">—</td>
+          </tr>
+          <tr>
+            <td>Feature Request</td>
+            <td style="color:var(--text3);font-size:12px;">Col O includes "Feature Request"</td>
+            <td id="mFeature">—</td>
+          </tr>
+          <tr>
+            <td>Self Solve Tickets</td>
+            <td style="color:var(--text3);font-size:12px;">Col N includes "Self Solve"</td>
+            <td id="mSelfSolve">—</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       SECTION 6 — CHARTS
+       To add a new chart: copy a chart-card block,
+       give the canvas a unique id, and add a new
+       Chart() call in the renderCharts() function
+  ════════════════════════════════════════════ -->
+  <div class="section">
+    <div class="section-head">
+      <div class="tag">Visual Summary</div>
+      <div class="line"></div>
+    </div>
+    <div class="cards cards-2">
+
+      <div class="chart-card">
+        <div class="chart-title">Ticket severity split</div>
+        <div class="chart-wrap" style="height:220px;">
+          <canvas id="chartSev"></canvas>
+        </div>
+        <div style="display:flex;gap:14px;margin-top:14px;flex-wrap:wrap;font-size:12px;color:var(--text3);">
+          <span style="display:flex;align-items:center;gap:5px;"><span style="width:10px;height:10px;background:#C6943A;border-radius:2px;display:inline-block;"></span>Sev 1/2/3</span>
+          <span style="display:flex;align-items:center;gap:5px;"><span style="width:10px;height:10px;background:#1E3A5F;border-radius:2px;display:inline-block;"></span>Sev 4</span>
+          <span style="display:flex;align-items:center;gap:5px;"><span style="width:10px;height:10px;background:#CBD5E1;border-radius:2px;display:inline-block;"></span>Others</span>
+        </div>
+      </div>
+
+      <div class="chart-card">
+        <div class="chart-title">Ticket pipeline overview</div>
+        <div class="chart-wrap" style="height:220px;">
+          <canvas id="chartPipeline"></canvas>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════════
+       ➕ ADD NEW SECTIONS BELOW THIS LINE
+       Copy any section block above, paste here,
+       give new ids to metric elements, and add
+       the computation logic in computeMetrics()
+  ════════════════════════════════════════════ -->
+
+</div><!-- end .main -->
+
+<!-- FOOTER -->
+<div class="footer">
+  <p>Confidential · For Executive Review Only</p>
+  <p id="lastRefresh">—</p>
+</div>
+
+<script>
+/* ═══════════════════════════════════════════════════
+   CONFIG — change only these values if sheet changes
+════════════════════════════════════════════════════ */
+const SHEET_ID = '1QntVLDgXonqk7gHe-MkHhZJC1hq9KzTPFHAVhH4m5DY';
+const GID      = '804363926';
+const REFRESH_INTERVAL_MS = 5 * 60 * 1000; // 5 minutes
+
+/* ═══════════════════════════════════════════════════
+   CSV FETCH & PARSE
+════════════════════════════════════════════════════ */
+async function fetchCSV() {
+  const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=csv&gid=${GID}`;
+  const resp = await fetch(url);
+  if (!resp.ok) throw new Error('Could not fetch sheet. Make sure it is public on the web.');
+  return resp.text();
+}
+
+function parseCSV(text) {
+  const lines = text.trim().split('\n');
+  const headers = splitRow(lines[0]).map(h => h.trim());
+  return lines.slice(1).filter(l => l.trim()).map(line => {
+    const vals = splitRow(line);
+    const obj = {};
+    headers.forEach((h, i) => obj[h] = (vals[i] || '').trim());
+    return obj;
+  });
+}
+
+function splitRow(line) {
+  const out = []; let cur = ''; let q = false;
+  for (const ch of line) {
+    if (ch === '"') { q = !q; }
+    else if (ch === ',' && !q) { out.push(cur); cur = ''; }
+    else cur += ch;
+  }
+  out.push(cur); return out;
+}
+
+/* ═══════════════════════════════════════════════════
+   COLUMN HELPERS
+   If column names change in the sheet, update here
+════════════════════════════════════════════════════ */
+const get = (row, key) => {
+  if (row[key] !== undefined) return row[key];
+  const k = Object.keys(row).find(r => r.toLowerCase().includes(key.toLowerCase()));
+  return k ? row[k] : '';
+};
+
+const getTicketId    = r => get(r, 'Ticket Id') || get(r, 'Ticket ID');
+const getPriority    = r => get(r, 'Priority (Ticket)') || get(r, 'Priority');
+const getOwner       = r => get(r, 'Ticket Owner');
+const getStatus      = r => get(r, 'Status (Ticket)') || get(r, 'Status');
+const getTicketType  = r => get(r, 'Ticket Type');
+const getIssueClass  = r => get(r, 'Issue Classification');
+const getReopen      = r => get(r, 'Number of Reopen');
+const getRaisedTech  = r => get(r, 'Raised to Tech');
+const getResolvedTech= r => get(r, 'Resolved by Tech');
+const getIsEscalated = r => get(r, 'Is Escalated');
+const getColAS       = r => get(r, 'New First Response Time in Hrs') || get(r, 'First Response Time in Business Hours');
+const getColAR       = r => get(r, 'New Resolution time(in hrs)') || get(r, 'Resolution time to convert in hrs');
+const getColAU       = r => get(r, 'New Resolution by Tech Team(in hours)');
+
+/* ═══════════════════════════════════════════════════
+   FILTER HELPERS
+════════════════════════════════════════════════════ */
+const SEV123_PATTERNS = ['sev 3 - non-mission', 'sev 1 - mission critical', 'sev 2 -non-severity', 'sev 2 - non-severity'];
+
+const isSev123   = r => SEV123_PATTERNS.some(p => getPriority(r).toLowerCase().includes(p));
+const isSev4     = r => getPriority(r).toLowerCase().includes('sev 4');
+const isVitthal  = r => getOwner(r).toLowerCase().includes('vitthal samant');
+const isAKnotNull= r => { const v = getRaisedTech(r).trim().toLowerCase(); return v && v !== '-' && v !== 'no' && v !== 'false' && v !== ''; };
+const isBFyes    = r => { const v = getIsEscalated(r).trim().toLowerCase(); return v === 'yes' || v === 'true' || v === '1'; };
+const num        = v => { const n = parseFloat(v); return isNaN(n) ? 0 : n; };
+const avg        = arr => arr.length ? arr.reduce((a,b)=>a+b,0)/arr.length : 0;
+
+/* ═══════════════════════════════════════════════════
+   COMPUTE METRICS
+   Add new metric computations here in future
+════════════════════════════════════════════════════ */
+function computeMetrics(rows) {
+  const ticketCreated  = rows.filter(r => getTicketId(r) && !isVitthal(r)).length;
+  const sev123         = rows.filter(r => isSev123(r)).length;
+  const sev4           = rows.filter(r => isSev4(r)).length;
+  const closed         = rows.filter(r => getStatus(r).toLowerCase().includes('closed')).length;
+  const escalated      = rows.filter(r => isSev123(r) && isBFyes(r)).length;
+  const escPct         = sev123 > 0 ? (escalated / sev123 * 100).toFixed(1) + '%' : '—';
+  const raisedTech     = rows.filter(r => getTicketId(r) && !isVitthal(r) && isAKnotNull(r)).length;
+  const raisedSev123   = rows.filter(r => getTicketId(r) && !isVitthal(r) && isAKnotNull(r) && isSev123(r)).length;
+  const raisedSev4     = rows.filter(r => getTicketId(r) && !isVitthal(r) && isAKnotNull(r) && isSev4(r)).length;
+  const resolvedTech   = rows.filter(r => getTicketId(r) && !isVitthal(r) && isAKnotNull(r) && getResolvedTech(r).trim() !== '-' && getResolvedTech(r).trim() !== '').length;
+  const escByTech      = rows.filter(r => getTicketId(r) && !isVitthal(r) && isAKnotNull(r) && isSev123(r) && isBFyes(r)).length;
+  const techEscPct     = raisedSev123 > 0 ? (escByTech / raisedSev123 * 100).toFixed(1) + '%' : '—';
+  const avgFR          = avg(rows.map(r => num(getColAS(r))).filter(v => v > 0)).toFixed(1);
+  const avgAR          = avg(rows.map(r => num(getColAR(r))).filter(v => v > 0)).toFixed(1);
+  const avgAU          = avg(rows.map(r => num(getColAU(r))).filter(v => v > 0)).toFixed(1);
+  const reopen         = Math.round(rows.reduce((a, r) => a + num(getReopen(r)), 0));
+  const bugFound       = rows.filter(r => getIssueClass(r).toLowerCase().includes('bug')).length;
+  const featureReq     = rows.filter(r => getIssueClass(r).toLowerCase().includes('feature request')).length;
+  const selfSolve      = rows.filter(r => getTicketType(r).toLowerCase().includes('self solve')).length;
+  const othersCount    = rows.length - rows.filter(r => isVitthal(r)).length;
+
+  return {
+    ticketCreated, sev123, sev4, closed,
+    escalated, escPct, raisedTech, raisedSev123, raisedSev4,
+    resolvedTech, escByTech, techEscPct,
+    avgFR, avgAR, avgAU,
+    reopen, bugFound, featureReq, selfSolve,
+    othersCount, total: rows.length
+  };
+}
+
+/* ═══════════════════════════════════════════════════
+   RENDER TO DOM
+   Add new element renders here in future
+════════════════════════════════════════════════════ */
+function renderMetrics(m) {
+  const $ = id => document.getElementById(id);
+  $('mTicketCreated').textContent = m.ticketCreated.toLocaleString();
+  $('mSev123').textContent        = m.sev123.toLocaleString();
+  $('mSev4').textContent          = m.sev4.toLocaleString();
+  $('mClosed').textContent        = m.closed.toLocaleString();
+  $('mEscalated').textContent     = m.escalated.toLocaleString();
+  $('mEscPct').textContent        = m.escPct;
+  $('mRaisedTech').textContent    = m.raisedTech.toLocaleString();
+  $('mTechEscPct').textContent    = m.techEscPct;
+  $('mRaisedSev123').textContent  = m.raisedSev123.toLocaleString();
+  $('mRaisedSev4').textContent    = m.raisedSev4.toLocaleString();
+  $('mResolvedTech').textContent  = m.resolvedTech.toLocaleString();
+  $('mEscByTech').textContent     = m.escByTech.toLocaleString();
+  $('mAvgFR').textContent         = m.avgFR;
+  $('mAvgAR').textContent         = m.avgAR;
+  $('mAvgAU').textContent         = m.avgAU;
+  $('mReopen').textContent        = m.reopen.toLocaleString();
+  $('mBug').textContent           = m.bugFound.toLocaleString();
+  $('mFeature').textContent       = m.featureReq.toLocaleString();
+  $('mSelfSolve').textContent     = m.selfSolve.toLocaleString();
+
+  const now = new Date();
+  $('reportDate').textContent  = now.toLocaleDateString('en-IN', { day:'2-digit', month:'long', year:'numeric' });
+  $('lastRefresh').textContent = 'Refreshed at ' + now.toLocaleTimeString('en-IN');
+  $('statusMsg').textContent   = `Live · ${m.total.toLocaleString()} records loaded`;
+}
+
+/* ═══════════════════════════════════════════════════
+   CHARTS
+   Add new Chart() blocks here in future
+════════════════════════════════════════════════════ */
+let chartSevInst, chartPipelineInst;
+
+function renderCharts(m) {
+  if (chartSevInst)      chartSevInst.destroy();
+  if (chartPipelineInst) chartPipelineInst.destroy();
+
+  const others = Math.max(0, m.total - m.sev123 - m.sev4);
+
+  chartSevInst = new Chart(document.getElementById('chartSev'), {
+    type: 'doughnut',
+    data: {
+      labels: ['Sev 1/2/3', 'Sev 4', 'Others'],
+      datasets: [{ data: [m.sev123, m.sev4, others], backgroundColor: ['#C6943A','#1E3A5F','#CBD5E1'], borderWidth: 0 }]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false, cutout: '72%',
+      plugins: { legend: { display: false } }
+    }
+  });
+
+  chartPipelineInst = new Chart(document.getElementById('chartPipeline'), {
+    type: 'bar',
+    data: {
+      labels: ['Created', 'Closed', 'Escalated', 'Raised to Tech', 'Resolved by Tech', 'Bug Found', 'Feature Req'],
+      datasets: [{
+        data: [m.ticketCreated, m.closed, m.escalated, m.raisedTech, m.resolvedTech, m.bugFound, m.featureReq],
+        backgroundColor: ['#0B1829','#166534','#DC2626','#1E3A5F','#16A34A','#C6943A','#92400E'],
+        borderRadius: 4, borderWidth: 0
+      }]
+    },
+    options: {
+      responsive: true, maintainAspectRatio: false,
+      plugins: { legend: { display: false } },
+      scales: {
+        x: { grid: { display: false }, ticks: { font: { size: 10 }, maxRotation: 35 } },
+        y: { grid: { color: 'rgba(0,0,0,0.04)' }, ticks: { font: { size: 11 } } }
+      }
+    }
+  });
+}
+
+/* ═══════════════════════════════════════════════════
+   MAIN FETCH & RENDER LOOP
+════════════════════════════════════════════════════ */
+async function fetchAndRender() {
+  try {
+    document.getElementById('loaderMsg').textContent = 'Connecting to Google Sheets…';
+    const csv  = await fetchCSV();
+    document.getElementById('loaderMsg').textContent = 'Computing metrics…';
+    const rows = parseCSV(csv);
+    if (!rows.length) throw new Error('Sheet appears empty.');
+    const metrics = computeMetrics(rows);
+    renderMetrics(metrics);
+    renderCharts(metrics);
+    const loader = document.getElementById('loader');
+    loader.style.opacity = '0';
+    setTimeout(() => loader.style.display = 'none', 600);
+  } catch (err) {
+    document.getElementById('loader').style.display = 'none';
+    const b = document.getElementById('errorBanner');
+    b.style.display = 'block';
+    b.innerHTML = `<strong>Data load failed:</strong> ${err.message}<br><small>Ensure the Google Sheet is set to "Public on the web" and refresh the page.</small>`;
+  }
+}
+
+fetchAndRender();
+setInterval(fetchAndRender, REFRESH_INTERVAL_MS);
+</script>
+</body>
+</html>
