@@ -16,7 +16,6 @@
   }
   body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--text); min-height: 100vh; }
 
-  /* HEADER */
   .header { background: var(--navy); padding: 0 48px; height: 72px; display: flex; align-items: center; justify-content: space-between; border-bottom: 2px solid var(--gold); }
   .header-brand { display: flex; align-items: center; gap: 16px; }
   .header-brand .dot { width: 8px; height: 8px; background: var(--gold); border-radius: 50%; }
@@ -30,7 +29,6 @@
   @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
   .live-badge span { font-size: 11px; color: rgba(255,255,255,0.5); text-transform: uppercase; letter-spacing: 0.1em; }
 
-  /* MAIN NAV */
   .main-nav { background: var(--navy2); padding: 0 48px; display: flex; align-items: flex-end; border-bottom: 0.5px solid rgba(255,255,255,0.08); }
   .main-nav-tab { font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.1em; color: rgba(255,255,255,0.35); padding: 13px 20px 12px; cursor: pointer; border: none; border-bottom: 2px solid transparent; background: none; transition: color 0.15s, border-color 0.15s; white-space: nowrap; }
   .main-nav-tab:hover { color: rgba(255,255,255,0.65); }
@@ -40,7 +38,6 @@
   .nav-right a { font-size: 11px; color: var(--gold); text-decoration: none; }
   .nav-right a:hover { text-decoration: underline; }
 
-  /* FILTER BAR */
   .filter-bar { background: var(--white); border-bottom: 0.5px solid var(--border2); padding: 0 48px; display: flex; align-items: stretch; min-height: 56px; flex-wrap: wrap; }
   .filter-group { display: flex; align-items: center; gap: 10px; padding: 8px 24px 8px 0; border-right: 0.5px solid var(--border2); margin-right: 24px; }
   .filter-label { font-size: 10px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.12em; color: var(--text3); white-space: nowrap; }
@@ -52,20 +49,15 @@
   .reset-btn { font-family: 'DM Sans', sans-serif; font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text3); background: none; border: 0.5px solid var(--border2); border-radius: 6px; padding: 5px 12px; cursor: pointer; transition: all 0.15s; }
   .reset-btn:hover { border-color: var(--gold); color: var(--gold); }
 
-  /* PAGES */
   .page { display: none; }
   .page.active { display: block; }
-
-  /* MAIN CONTENT AREA */
   .main { padding: 32px 48px 48px; }
 
-  /* SECTION */
   .section { margin-bottom: 32px; }
   .section-head { display: flex; align-items: center; gap: 10px; margin-bottom: 16px; }
   .section-head .tag { font-size: 10px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.14em; color: var(--text3); padding-bottom: 6px; border-bottom: 2px solid var(--gold); }
   .section-head .line { flex: 1; height: 0.5px; background: var(--border2); }
 
-  /* CARDS */
   .cards { display: grid; gap: 14px; }
   .cards-4 { grid-template-columns: repeat(4, 1fr); }
   .card { background: var(--white); border: 0.5px solid var(--border); border-radius: 10px; padding: 18px 20px 16px; position: relative; overflow: hidden; transition: transform 0.15s, box-shadow 0.15s; }
@@ -79,21 +71,18 @@
   .card-value { font-family: 'Playfair Display', serif; font-size: 36px; font-weight: 500; color: var(--text); line-height: 1; }
   .card-sub   { font-size: 11px; color: var(--text3); margin-top: 6px; font-style: italic; }
 
-  /* AVG ROW */
   .avg-row { display: grid; grid-template-columns: repeat(3,1fr); gap: 14px; }
   .avg-item { background: var(--cream2); border-radius: 8px; padding: 16px 18px; text-align: center; }
   .avg-lbl  { font-size: 10px; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text3); margin-bottom: 8px; }
   .avg-val  { font-family: 'Playfair Display', serif; font-size: 28px; font-weight: 500; color: var(--text); }
   .avg-unit { font-size: 11px; color: var(--text3); margin-top: 4px; }
 
-  /* TABLE CARD */
   .table-card { background: var(--white); border: 0.5px solid var(--border); border-radius: 10px; overflow: hidden; }
   .table-card-head { padding: 16px 24px 14px; border-bottom: 0.5px solid var(--border2); display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; }
   .table-card-title { font-family: 'Playfair Display', serif; font-size: 15px; font-weight: 500; color: var(--text); }
   .table-card-sub   { font-size: 11px; color: var(--text3); font-style: italic; }
   .table-wrap { overflow-x: auto; }
 
-  /* SUMMARY TABLE */
   .summary-table { width: 100%; border-collapse: collapse; font-size: 13px; }
   .summary-table th { font-size: 10px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text3); padding: 9px 16px; text-align: left; background: var(--cream); border-bottom: 1px solid var(--border2); white-space: nowrap; }
   .summary-table th:last-child { text-align: right; }
@@ -102,7 +91,6 @@
   .summary-table tr:last-child td { border-bottom: none; }
   .summary-table tr:hover td { background: var(--cream); }
 
-  /* BREAKDOWN TABLE (Tech Owner & Dev Team) */
   .breakdown-table { width: 100%; border-collapse: collapse; font-size: 12.5px; min-width: 780px; }
   .breakdown-table thead tr { background: var(--navy); }
   .breakdown-table thead th { padding: 11px 16px; text-align: left; font-size: 10px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.1em; color: rgba(255,255,255,0.5); white-space: nowrap; border: none; }
@@ -120,13 +108,9 @@
   .breakdown-table tfoot tr { background: var(--navy2); }
   .breakdown-table tfoot td { padding: 11px 16px; font-weight: 500; color: rgba(255,255,255,0.75); font-size: 12.5px; border: none; }
   .breakdown-table tfoot td:not(:first-child) { text-align: right; font-family: 'Playfair Display', serif; font-size: 14px; color: var(--gold-lt); }
-
   .empty-row td { padding: 36px !important; text-align: center !important; color: var(--text3); font-size: 13px; font-style: italic; }
 
-  /* ERROR */
   .error-banner { background: #FEE2E2; border: 0.5px solid #FCA5A5; color: var(--red); padding: 14px 20px; border-radius: 8px; font-size: 13px; margin-bottom: 24px; display: none; line-height: 1.6; }
-
-  /* LOADING */
   .loading-screen { position: fixed; inset: 0; background: var(--navy); display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 999; transition: opacity 0.6s; }
   .loading-screen .brand { font-family: 'Playfair Display', serif; font-size: 24px; color: #fff; margin-bottom: 6px; }
   .loading-screen .sub { font-size: 11px; color: rgba(255,255,255,0.3); text-transform: uppercase; letter-spacing: 0.14em; margin-bottom: 36px; }
@@ -134,12 +118,9 @@
   .loader-fill { height: 100%; background: var(--gold); animation: ld 2.2s ease forwards; border-radius: 2px; }
   @keyframes ld { from{width:0} to{width:100%} }
   .loading-screen .msg { font-size: 11px; color: rgba(255,255,255,0.3); margin-top: 14px; letter-spacing: 0.06em; }
-
-  /* FOOTER */
   .footer { background: var(--navy); padding: 14px 48px; display: flex; justify-content: space-between; align-items: center; }
   .footer p { font-size: 11px; color: rgba(255,255,255,0.25); letter-spacing: 0.06em; }
 
-  /* RESPONSIVE */
   @media (max-width: 1100px) { .cards-4 { grid-template-columns: repeat(2,1fr); } }
   @media (max-width: 700px) {
     .main, .header, .footer, .filter-bar, .main-nav { padding-left: 16px; padding-right: 16px; }
@@ -153,7 +134,6 @@
 </head>
 <body>
 
-<!-- LOADING -->
 <div class="loading-screen" id="loader">
   <div class="brand">Product & Tech</div>
   <div class="sub">Executive Dashboard</div>
@@ -161,7 +141,6 @@
   <div class="msg" id="loaderMsg">Fetching live data…</div>
 </div>
 
-<!-- HEADER -->
 <div class="header">
   <div class="header-brand">
     <div class="dot"></div>
@@ -177,7 +156,6 @@
   </div>
 </div>
 
-<!-- MAIN NAV -->
 <div class="main-nav">
   <button class="main-nav-tab active" onclick="switchPage('overview', this)">Overview</button>
   <button class="main-nav-tab" onclick="switchPage('tech', this)">Tech Overview</button>
@@ -187,25 +165,18 @@
   </div>
 </div>
 
-<!-- FILTER BAR -->
 <div class="filter-bar">
   <div class="filter-group">
     <span class="filter-label">Month</span>
-    <select class="filter-select" id="filterMonth" onchange="applyFilters()">
-      <option value="">All Months</option>
-    </select>
+    <select class="filter-select" id="filterMonth" onchange="applyFilters()"><option value="">All Months</option></select>
   </div>
   <div class="filter-group">
     <span class="filter-label">Client Name</span>
-    <select class="filter-select" id="filterClient" onchange="applyFilters()">
-      <option value="">All Clients</option>
-    </select>
+    <select class="filter-select" id="filterClient" onchange="applyFilters()"><option value="">All Clients</option></select>
   </div>
   <div class="filter-group">
     <span class="filter-label">Ticket Owner</span>
-    <select class="filter-select" id="filterOwner" onchange="applyFilters()">
-      <option value="">All Owners</option>
-    </select>
+    <select class="filter-select" id="filterOwner" onchange="applyFilters()"><option value="">All Owners</option></select>
   </div>
   <div class="filter-meta">
     <span class="filter-count" id="filterCount"></span>
@@ -213,9 +184,7 @@
   </div>
 </div>
 
-<!-- ══════════════════════════════
-     PAGE 1: OVERVIEW
-══════════════════════════════ -->
+<!-- PAGE 1: OVERVIEW -->
 <div class="page active" id="page-overview">
   <div class="main">
     <div class="error-banner" id="errorBanner"></div>
@@ -233,9 +202,9 @@
     <div class="section">
       <div class="section-head"><div class="tag">Escalation</div><div class="line"></div></div>
       <div class="cards cards-4">
-        <div class="card red"><div class="card-label">Escalated Tickets</div><div class="card-value" id="mEscalated">—</div><div class="card-sub">Sev 1/2/3 + BF = YES</div></div>
+        <div class="card red"><div class="card-label">Escalated Tickets</div><div class="card-value" id="mEscalated">—</div><div class="card-sub">Sev 1/2/3 + Is Escalated = YES</div></div>
         <div class="card"><div class="card-label">Escalation %</div><div class="card-value" id="mEscPct">—</div><div class="card-sub">Escalated ÷ Sev 1/2/3</div></div>
-        <div class="card blue"><div class="card-label">Raised to Tech</div><div class="card-value" id="mRaisedTech">—</div><div class="card-sub">Excl. Vitthal, Col AK not null</div></div>
+        <div class="card blue"><div class="card-label">Raised to Tech</div><div class="card-value" id="mRaisedTech">—</div><div class="card-sub">Excl. Vitthal, Raised to Tech ≠ "-"</div></div>
         <div class="card"><div class="card-label">Tech Escalation %</div><div class="card-value" id="mTechEscPct">—</div><div class="card-sub">Escalated by Tech ÷ Raised Sev 1/2/3</div></div>
       </div>
     </div>
@@ -243,19 +212,19 @@
     <div class="section">
       <div class="section-head"><div class="tag">Raised to Tech — Breakdown</div><div class="line"></div></div>
       <div class="cards cards-4">
-        <div class="card gold"><div class="card-label">Raised to Tech — Sev 1/2/3</div><div class="card-value" id="mRaisedSev123">—</div><div class="card-sub">Excl. Vitthal, AK not null, Sev 1/2/3</div></div>
-        <div class="card"><div class="card-label">Raised to Tech — Sev 4</div><div class="card-value" id="mRaisedSev4">—</div><div class="card-sub">Excl. Vitthal, AK not null, Sev 4</div></div>
-        <div class="card green"><div class="card-label">Resolved by Tech</div><div class="card-value" id="mResolvedTech">—</div><div class="card-sub">Excl. Vitthal, AK not null, AI col ≠ " -"</div></div>
-        <div class="card red"><div class="card-label">Escalated by Tech</div><div class="card-value" id="mEscByTech">—</div><div class="card-sub">Excl. Vitthal, AK not null, Sev 1/2/3, BF=YES</div></div>
+        <div class="card gold"><div class="card-label">Raised to Tech — Sev 1/2/3</div><div class="card-value" id="mRaisedSev123">—</div><div class="card-sub">Excl. Vitthal, raised, Sev 1/2/3</div></div>
+        <div class="card"><div class="card-label">Raised to Tech — Sev 4</div><div class="card-value" id="mRaisedSev4">—</div><div class="card-sub">Excl. Vitthal, raised, Sev 4</div></div>
+        <div class="card green"><div class="card-label">Resolved by Tech</div><div class="card-value" id="mResolvedTech">—</div><div class="card-sub">Raised & Resolved by Tech ≠ "-"</div></div>
+        <div class="card red"><div class="card-label">Escalated by Tech</div><div class="card-value" id="mEscByTech">—</div><div class="card-sub">Raised, Sev 1/2/3, Is Escalated = YES</div></div>
       </div>
     </div>
 
     <div class="section">
       <div class="section-head"><div class="tag">Average Resolution Times</div><div class="line"></div></div>
       <div class="avg-row">
-        <div class="avg-item"><div class="avg-lbl">Avg First Response on Ticket</div><div class="avg-val" id="mAvgFR">—</div><div class="avg-unit">hrs · Col AS</div></div>
-        <div class="avg-item"><div class="avg-lbl">Ag Resolution on Ticket</div><div class="avg-val" id="mAvgAR">—</div><div class="avg-unit">hrs · Col AR</div></div>
-        <div class="avg-item"><div class="avg-lbl">Avg Tech Resolution</div><div class="avg-val" id="mAvgAU">—</div><div class="avg-unit">hrs · Col AU</div></div>
+        <div class="avg-item"><div class="avg-lbl">Avg First Response on Ticket</div><div class="avg-val" id="mAvgFR">—</div><div class="avg-unit">hrs · New First Response Time in Hrs</div></div>
+        <div class="avg-item"><div class="avg-lbl">Ag Resolution on Ticket</div><div class="avg-val" id="mAvgAR">—</div><div class="avg-unit">hrs · New Resolution time(in hrs)</div></div>
+        <div class="avg-item"><div class="avg-lbl">Avg Tech Resolution</div><div class="avg-val" id="mAvgAU">—</div><div class="avg-unit">hrs · New Resolution by Tech Team(in hours)</div></div>
       </div>
     </div>
 
@@ -266,24 +235,19 @@
           <table class="summary-table">
             <thead><tr><th>Metric</th><th>Definition</th><th>Count</th></tr></thead>
             <tbody>
-              <tr><td>Reopen Tickets</td><td style="color:var(--text3);font-size:12px;">Sum of Column R</td><td id="mReopen">—</td></tr>
-              <tr><td>Bug Found</td><td style="color:var(--text3);font-size:12px;">Col O includes "Bug"</td><td id="mBug">—</td></tr>
-              <tr><td>Feature Request</td><td style="color:var(--text3);font-size:12px;">Col O includes "Feature Request"</td><td id="mFeature">—</td></tr>
-              <tr><td>Self Solve Tickets</td><td style="color:var(--text3);font-size:12px;">Col N includes "Self Solve"</td><td id="mSelfSolve">—</td></tr>
+              <tr><td>Reopen Tickets</td><td style="color:var(--text3);font-size:12px;">Sum of Number of Reopen</td><td id="mReopen">—</td></tr>
+              <tr><td>Bug Found</td><td style="color:var(--text3);font-size:12px;">Issue Classification includes "Bug"</td><td id="mBug">—</td></tr>
+              <tr><td>Feature Request</td><td style="color:var(--text3);font-size:12px;">Issue Classification includes "Feature Request"</td><td id="mFeature">—</td></tr>
+              <tr><td>Self Solve Tickets</td><td style="color:var(--text3);font-size:12px;">Ticket Type includes "Self Solve"</td><td id="mSelfSolve">—</td></tr>
             </tbody>
           </table>
         </div>
       </div>
     </div>
-
-    <!-- ➕ ADD NEW OVERVIEW SECTIONS BELOW THIS LINE -->
   </div>
 </div>
 
-<!-- ══════════════════════════════
-     PAGE 2: TECH OVERVIEW
-     Both tables stacked on same screen
-══════════════════════════════ -->
+<!-- PAGE 2: TECH OVERVIEW -->
 <div class="page" id="page-tech">
   <div class="main">
 
@@ -293,7 +257,7 @@
       <div class="table-card">
         <div class="table-card-head">
           <span class="table-card-title">Tech Owner wise</span>
-          <span class="table-card-sub">Col AK · grouped by tech owner · filters apply</span>
+          <span class="table-card-sub">Rows where "Tech Owner" (Col AK) is not empty · filters apply</span>
         </div>
         <div class="table-wrap">
           <table class="breakdown-table">
@@ -321,7 +285,7 @@
       <div class="table-card">
         <div class="table-card-head">
           <span class="table-card-title">Dev Team wise</span>
-          <span class="table-card-sub">Col AN · grouped by dev team · filters apply</span>
+          <span class="table-card-sub">Rows where "Dev Team" (Col AN) is not empty · filters apply</span>
         </div>
         <div class="table-wrap">
           <table class="breakdown-table">
@@ -343,26 +307,21 @@
       </div>
     </div>
 
-    <!-- ➕ ADD NEW TECH OVERVIEW SECTIONS BELOW THIS LINE -->
   </div>
 </div>
 
-<!-- FOOTER -->
 <div class="footer">
   <p>Confidential · For Executive Review Only</p>
   <p id="lastRefresh">—</p>
 </div>
 
 <script>
-/* CONFIG */
 const SHEET_ID   = '1QntVLDgXonqk7gHe-MkHhZJC1hq9KzTPFHAVhH4m5DY';
 const GID        = '804363926';
 const REFRESH_MS = 5 * 60 * 1000;
 
-/* STATE */
 let ALL_ROWS = [], FILTERED_ROWS = [];
 
-/* PAGE SWITCH */
 function switchPage(name, el) {
   document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
   document.querySelectorAll('.main-nav-tab').forEach(t => t.classList.remove('active'));
@@ -370,7 +329,6 @@ function switchPage(name, el) {
   el.classList.add('active');
 }
 
-/* FETCH & PARSE */
 async function fetchCSV() {
   const resp = await fetch(`https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=csv&gid=${GID}`);
   if (!resp.ok) throw new Error('Could not fetch sheet. Ensure it is public on the web.');
@@ -397,46 +355,70 @@ function splitRow(line) {
   out.push(cur); return out;
 }
 
-/* COLUMN GETTERS */
-const get = (row, key) => { if (row[key] !== undefined) return row[key]; const k = Object.keys(row).find(r => r.toLowerCase().includes(key.toLowerCase())); return k ? row[k] : ''; };
-const getTicketId     = r => get(r, 'Ticket Id') || get(r, 'Ticket ID');
-const getPriority     = r => get(r, 'Priority (Ticket)') || get(r, 'Priority');
-const getOwner        = r => get(r, 'Ticket Owner');
-const getStatus       = r => get(r, 'Status (Ticket)') || get(r, 'Status');
-const getTicketType   = r => get(r, 'Ticket Type');
-const getIssueClass   = r => get(r, 'Issue Classification');
-const getReopen       = r => get(r, 'Number of Reopen');
-const getRaisedTech   = r => get(r, 'Raised to Tech');       // Col AK
-const getDevTeam      = r => get(r, 'Dev Team');              // Col AN
-const getResolvedTech = r => get(r, 'Resolved by Tech');
-const getIsEscalated  = r => get(r, 'Is Escalated');
-const getColAS        = r => get(r, 'New First Response Time in Hrs') || get(r, 'First Response Time in Business Hours');
-const getColAR        = r => get(r, 'New Resolution time(in hrs)') || get(r, 'Resolution time to convert in hrs');
-const getColAU        = r => get(r, 'New Resolution by Tech Team(in hours)');
-const getMonth        = r => get(r, 'Month');
-const getClientName   = r => get(r, 'New Client Name') || get(r, 'Client Name');
-const getOwnerCol     = r => get(r, 'Ticket Owner');
+/* ═══════════════════════════════════════════════════
+   COLUMN GETTERS — exact header names from sheet
+═══════════════════════════════════════════════════ */
+const col = (row, name) => (row[name] || '').trim();
 
-/* METRIC HELPERS */
-const SEV123 = ['sev 3 - non-mission', 'sev 1 - mission critical', 'sev 2 -non-severity', 'sev 2 - non-severity'];
-const isSev123    = r => SEV123.some(p => getPriority(r).toLowerCase().includes(p));
-const isSev4      = r => getPriority(r).toLowerCase().includes('sev 4');
-const isVitthal   = r => getOwner(r).toLowerCase().includes('vitthal samant');
-const isAKnotNull = r => { const v = getRaisedTech(r).trim().toLowerCase(); return v && v !== '-' && v !== 'no' && v !== 'false'; };
-const isBFyes     = r => { const v = getIsEscalated(r).trim().toLowerCase(); return v === 'yes' || v === 'true' || v === '1'; };
-const num         = v => { const n = parseFloat(v); return isNaN(n) ? 0 : n; };
-const avgArr      = arr => arr.length ? arr.reduce((a,b)=>a+b,0)/arr.length : 0;
-const fmtPct      = (a,b) => b > 0 ? (a/b*100).toFixed(1)+'%' : '—';
-const fmtAvg      = arr => arr.length ? avgArr(arr).toFixed(1) : '—';
+const getTicketId       = r => col(r, 'Ticket Id');
+const getPriority       = r => col(r, 'Priority (Ticket)');
+const getTicketOwner    = r => col(r, 'Ticket Owner');          // Col H — agent name
+const getStatus         = r => col(r, 'Status (Ticket)');
+const getTicketType     = r => col(r, 'Ticket Type');
+const getIssueClass     = r => col(r, 'Issue Classification');
+const getNumReopen      = r => col(r, 'Number of Reopen');
+const getIsEscalated    = r => col(r, 'Is Escalated');
+const getRaisedToTech   = r => col(r, 'Raised to Tech');        // Col AH — timestamp or "-"
+const getResolvedByTech = r => col(r, 'Resolved by Tech');      // Col AI — timestamp or "-"
+const getTechOwner      = r => col(r, 'Tech Owner');            // Col AK — person name or blank
+const getDevTeam        = r => col(r, 'Dev Team');              // Col AN — team name or blank
+const getColAR          = r => col(r, 'New Resolution time(in hrs)');
+const getColAS          = r => col(r, 'New First Response Time in Hrs');
+const getColAU          = r => col(r, 'New Resolution by Tech Team(in hours)');
+const getMonth          = r => col(r, 'Month');                 // Col AV
+const getClientName     = r => col(r, 'New Client Name');       // Col AY
+
+/* ═══════════════════════════════════════════════════
+   CONDITION HELPERS
+═══════════════════════════════════════════════════ */
+const SEV123_PATTERNS = ['sev 1 - mission critical', 'sev 2 -non-severity', 'sev 2 - non-severity', 'sev 3 - non-mission'];
+const isSev123   = r => SEV123_PATTERNS.some(p => getPriority(r).toLowerCase().includes(p));
+const isSev4     = r => getPriority(r).toLowerCase().includes('sev 4');
+const isVitthal  = r => getTicketOwner(r).toLowerCase().includes('vitthal samant');
+
+// Raised to Tech: Col AH has a real value (not blank, not "-")
+const isRaised   = r => { const v = getRaisedToTech(r); return v !== '' && v !== '-'; };
+
+// Resolved by Tech: Col AI has a real value (not blank, not "-")
+const isResolved = r => { const v = getResolvedByTech(r); return v !== '' && v !== '-'; };
+
+// Is Escalated: "true" or "yes" (sheet stores as true/false string)
+const isEsc      = r => { const v = getIsEscalated(r).toLowerCase(); return v === 'true' || v === 'yes' || v === '1'; };
+
+// Has Tech Owner: Col AK is not blank and not "-"
+const hasTechOwner = r => { const v = getTechOwner(r); return v !== '' && v !== '-'; };
+
+// Has Dev Team: Col AN is not blank and not "-"
+const hasDevTeam   = r => { const v = getDevTeam(r); return v !== '' && v !== '-'; };
+
+const isValid    = v => v !== '' && v !== '-';
+const num        = v => { const n = parseFloat(v); return isNaN(n) ? 0 : n; };
+const avgArr     = arr => arr.length ? arr.reduce((a,b) => a+b, 0) / arr.length : 0;
+const fmtPct     = (a,b) => b > 0 ? (a/b*100).toFixed(1)+'%' : '—';
+const fmtAvg     = arr => arr.length ? avgArr(arr).toFixed(1) : '—';
 
 /* FILTERS */
 function buildFilters() {
-  const months = [...new Set(ALL_ROWS.map(r => getMonth(r)).filter(Boolean))];
-  const mo = ['January','February','March','April','May','June','July','August','September','October','November','December'];
-  months.sort((a,b) => { const ai=mo.findIndex(m=>a.toLowerCase().includes(m.toLowerCase())), bi=mo.findIndex(m=>b.toLowerCase().includes(m.toLowerCase())); return (ai!==-1&&bi!==-1)?ai-bi:a.localeCompare(b); });
+  const months = [...new Set(ALL_ROWS.map(r => getMonth(r)).filter(isValid))];
+  const mo = ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+  months.sort((a,b) => {
+    const ai = mo.findIndex(m => a.includes(m));
+    const bi = mo.findIndex(m => b.includes(m));
+    return (ai !== -1 && bi !== -1) ? ai - bi : a.localeCompare(b);
+  });
   populateSelect('filterMonth',  months);
-  populateSelect('filterClient', [...new Set(ALL_ROWS.map(r => getClientName(r)).filter(Boolean))].sort());
-  populateSelect('filterOwner',  [...new Set(ALL_ROWS.map(r => getOwnerCol(r)).filter(Boolean))].sort());
+  populateSelect('filterClient', [...new Set(ALL_ROWS.map(r => getClientName(r)).filter(isValid))].sort());
+  populateSelect('filterOwner',  [...new Set(ALL_ROWS.map(r => getTicketOwner(r)).filter(isValid))].sort());
 }
 
 function populateSelect(id, values) {
@@ -447,13 +429,13 @@ function populateSelect(id, values) {
 }
 
 function applyFilters() {
-  const month = document.getElementById('filterMonth').value;
-  const client= document.getElementById('filterClient').value;
-  const owner = document.getElementById('filterOwner').value;
+  const month  = document.getElementById('filterMonth').value;
+  const client = document.getElementById('filterClient').value;
+  const owner  = document.getElementById('filterOwner').value;
   FILTERED_ROWS = ALL_ROWS.filter(r => {
-    if (month  && getMonth(r)      !== month)  return false;
-    if (client && getClientName(r) !== client) return false;
-    if (owner  && getOwnerCol(r)   !== owner)  return false;
+    if (month  && getMonth(r)       !== month)  return false;
+    if (client && getClientName(r)  !== client) return false;
+    if (owner  && getTicketOwner(r) !== owner)  return false;
     return true;
   });
   document.getElementById('filterCount').textContent = (month||client||owner)
@@ -466,53 +448,73 @@ function resetFilters() {
   applyFilters();
 }
 
-/* COMPUTE OVERALL METRICS */
+/* OVERALL METRICS */
 function computeMetrics(rows) {
-  const sev123      = rows.filter(r => isSev123(r)).length;
-  const raisedS123  = rows.filter(r => getTicketId(r) && !isVitthal(r) && isAKnotNull(r) && isSev123(r)).length;
-  const escByTech   = rows.filter(r => getTicketId(r) && !isVitthal(r) && isAKnotNull(r) && isSev123(r) && isBFyes(r)).length;
-  const escalated   = rows.filter(r => isSev123(r) && isBFyes(r)).length;
+  const sev123     = rows.filter(r => isSev123(r)).length;
+  // For overall raised-to-tech metrics: excl. Vitthal + Col AH not empty
+  const techRows   = rows.filter(r => !isVitthal(r) && isRaised(r));
+  const raisedS123 = techRows.filter(r => isSev123(r)).length;
+  const escByTech  = techRows.filter(r => isSev123(r) && isEsc(r)).length;
+  const escalated  = rows.filter(r => isSev123(r) && isEsc(r)).length;
   return {
-    ticketCreated: rows.filter(r => getTicketId(r) && !isVitthal(r)).length,
-    sev123, sev4: rows.filter(r => isSev4(r)).length,
-    closed: rows.filter(r => getStatus(r).toLowerCase().includes('closed')).length,
-    escalated, escPct: fmtPct(escalated, sev123),
-    raisedTech: rows.filter(r => getTicketId(r) && !isVitthal(r) && isAKnotNull(r)).length,
-    raisedSev123: raisedS123,
-    raisedSev4: rows.filter(r => getTicketId(r) && !isVitthal(r) && isAKnotNull(r) && isSev4(r)).length,
-    resolvedTech: rows.filter(r => getTicketId(r) && !isVitthal(r) && isAKnotNull(r) && getResolvedTech(r).trim() !== '-' && getResolvedTech(r).trim() !== '').length,
+    ticketCreated : rows.filter(r => isValid(getTicketId(r)) && !isVitthal(r)).length,
+    sev123, sev4  : rows.filter(r => isSev4(r)).length,
+    closed        : rows.filter(r => getStatus(r).toLowerCase() === 'closed').length,
+    escalated, escPct    : fmtPct(escalated, sev123),
+    raisedTech    : techRows.length,
+    raisedSev123  : raisedS123,
+    raisedSev4    : techRows.filter(r => isSev4(r)).length,
+    resolvedTech  : techRows.filter(r => isResolved(r)).length,
     escByTech, techEscPct: fmtPct(escByTech, raisedS123),
-    avgFR: fmtAvg(rows.map(r => num(getColAS(r))).filter(v => v > 0)),
-    avgAR: fmtAvg(rows.map(r => num(getColAR(r))).filter(v => v > 0)),
-    avgAU: fmtAvg(rows.map(r => num(getColAU(r))).filter(v => v > 0)),
-    reopen: Math.round(rows.reduce((a,r) => a+num(getReopen(r)),0)),
-    bugFound: rows.filter(r => getIssueClass(r).toLowerCase().includes('bug')).length,
+    avgFR  : fmtAvg(rows.map(r => num(getColAS(r))).filter(v => v > 0)),
+    avgAR  : fmtAvg(rows.map(r => num(getColAR(r))).filter(v => v > 0)),
+    avgAU  : fmtAvg(rows.map(r => num(getColAU(r))).filter(v => v > 0)),
+    reopen : Math.round(rows.reduce((a,r) => a + num(getNumReopen(r)), 0)),
+    bugFound  : rows.filter(r => getIssueClass(r).toLowerCase().includes('bug')).length,
     featureReq: rows.filter(r => getIssueClass(r).toLowerCase().includes('feature request')).length,
-    selfSolve: rows.filter(r => getTicketType(r).toLowerCase().includes('self solve')).length,
+    selfSolve : rows.filter(r => getTicketType(r).toLowerCase().includes('self solve')).length,
   };
 }
 
-/* COMPUTE GROUP METRICS (shared logic) */
+/* GROUP METRICS — shared logic */
 function computeGroupMetrics(groupRows) {
   const raisedSev123   = groupRows.filter(r => isSev123(r)).length;
   const raisedSev4     = groupRows.filter(r => isSev4(r)).length;
-  const resolvedByTech = groupRows.filter(r => getResolvedTech(r).trim() !== '-' && getResolvedTech(r).trim() !== '').length;
-  const escByTech      = groupRows.filter(r => isSev123(r) && isBFyes(r)).length;
-  return { raisedSev123, raisedSev4, resolvedByTech, escByTech, techEscPct: fmtPct(escByTech, raisedSev123), avgTechRes: fmtAvg(groupRows.map(r => num(getColAU(r))).filter(v => v > 0)) };
+  const resolvedByTech = groupRows.filter(r => isResolved(r)).length;
+  const escByTech      = groupRows.filter(r => isSev123(r) && isEsc(r)).length;
+  return {
+    raisedSev123, raisedSev4, resolvedByTech, escByTech,
+    techEscPct : fmtPct(escByTech, raisedSev123),
+    avgTechRes : fmtAvg(groupRows.map(r => num(getColAU(r))).filter(v => v > 0))
+  };
 }
 
-/* GROUP BY TECH OWNER (Col AK) */
+/* ═══════════════════════════════════════════════════
+   GROUP BY TECH OWNER
+   Base: rows where Col AK (Tech Owner) is NOT empty
+   This directly gives us only rows assigned to a tech person
+═══════════════════════════════════════════════════ */
 function groupByTechOwner(rows) {
-  const techRows = rows.filter(r => isAKnotNull(r) && !isVitthal(r));
-  return [...new Set(techRows.map(r => getRaisedTech(r)).filter(Boolean))].sort()
-    .map(name => ({ name, ...computeGroupMetrics(techRows.filter(r => getRaisedTech(r) === name)) }));
+  // Only rows that have a Tech Owner name in Col AK
+  const base  = rows.filter(r => hasTechOwner(r));
+  const names = [...new Set(base.map(r => getTechOwner(r)))].sort();
+  return names.map(name => ({
+    name,
+    ...computeGroupMetrics(base.filter(r => getTechOwner(r) === name))
+  }));
 }
 
-/* GROUP BY DEV TEAM (Col AN) */
+/* ═══════════════════════════════════════════════════
+   GROUP BY DEV TEAM
+   Base: rows where Col AN (Dev Team) is NOT empty
+═══════════════════════════════════════════════════ */
 function groupByDevTeam(rows) {
-  const techRows = rows.filter(r => isAKnotNull(r) && !isVitthal(r));
-  return [...new Set(techRows.map(r => getDevTeam(r)).filter(Boolean))].sort()
-    .map(name => ({ name, ...computeGroupMetrics(techRows.filter(r => getDevTeam(r) === name)) }));
+  const base  = rows.filter(r => hasDevTeam(r));
+  const names = [...new Set(base.map(r => getDevTeam(r)))].sort();
+  return names.map(name => ({
+    name,
+    ...computeGroupMetrics(base.filter(r => getDevTeam(r) === name))
+  }));
 }
 
 /* RENDER BREAKDOWN TABLE */
@@ -520,12 +522,10 @@ function renderBreakdownTable(rows, bodyId, footId, groupFn) {
   const data  = groupFn(rows);
   const tbody = document.getElementById(bodyId);
   const tfoot = document.getElementById(footId);
-
   if (!data.length) {
     tbody.innerHTML = `<tr class="empty-row"><td colspan="7">No data found for current filter selection.</td></tr>`;
     tfoot.innerHTML = ''; return;
   }
-
   tbody.innerHTML = data.map(d => `
     <tr>
       <td>${d.name}</td>
@@ -537,12 +537,16 @@ function renderBreakdownTable(rows, bodyId, footId, groupFn) {
       <td class="hrs">${d.avgTechRes}</td>
     </tr>`).join('');
 
-  const techRows = rows.filter(r => isAKnotNull(r) && !isVitthal(r));
-  const totR123  = data.reduce((a,d)=>a+d.raisedSev123,0);
-  const totR4    = data.reduce((a,d)=>a+d.raisedSev4,0);
-  const totRes   = data.reduce((a,d)=>a+d.resolvedByTech,0);
-  const totEsc   = data.reduce((a,d)=>a+d.escByTech,0);
-
+  // Totals row
+  const totR123 = data.reduce((a,d) => a+d.raisedSev123, 0);
+  const totR4   = data.reduce((a,d) => a+d.raisedSev4, 0);
+  const totRes  = data.reduce((a,d) => a+d.resolvedByTech, 0);
+  const totEsc  = data.reduce((a,d) => a+d.escByTech, 0);
+  // Avg AU across all base rows for this groupFn
+  const baseRows   = groupFn === groupByTechOwner
+    ? rows.filter(r => hasTechOwner(r))
+    : rows.filter(r => hasDevTeam(r));
+  const allAU = baseRows.map(r => num(getColAU(r))).filter(v => v > 0);
   tfoot.innerHTML = `
     <tr>
       <td>Total / Overall</td>
@@ -551,7 +555,7 @@ function renderBreakdownTable(rows, bodyId, footId, groupFn) {
       <td>${totRes.toLocaleString()}</td>
       <td>${totEsc.toLocaleString()}</td>
       <td>${fmtPct(totEsc, totR123)}</td>
-      <td>${fmtAvg(techRows.map(r=>num(getColAU(r))).filter(v=>v>0))}</td>
+      <td>${fmtAvg(allAU)}</td>
     </tr>`;
 }
 
@@ -579,7 +583,6 @@ function renderMetrics(m) {
   $('mSelfSolve').textContent     = m.selfSolve.toLocaleString();
 }
 
-/* RENDER ALL */
 function renderAll(rows) {
   renderMetrics(computeMetrics(rows));
   renderBreakdownTable(rows, 'techOwnerBody', 'techOwnerFoot', groupByTechOwner);
