@@ -5,7 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Product & Tech | Executive Dashboard</title>
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
 <style>
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   :root {
@@ -13,10 +12,7 @@
     --cream: #F5F2EC; --cream2: #EDE8DC; --white: #FFFFFF;
     --text: #0B1829; --text2: #455468; --text3: #7A8A9A;
     --border: rgba(11,24,41,0.09); --border2: rgba(11,24,41,0.16);
-    --green: #166534; --green-bg: #DCFCE7;
-    --red: #991B1B; --red-bg: #FEE2E2;
-    --amber: #92400E; --amber-bg: #FEF3C7;
-    --blue: #1E3A5F; --blue-bg: #DBEAFE;
+    --green: #166534; --red: #991B1B; --blue: #1E3A5F;
   }
   body { font-family: 'DM Sans', sans-serif; background: var(--cream); color: var(--text); min-height: 100vh; }
 
@@ -34,59 +30,33 @@
   @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0.3} }
   .live-badge span { font-size: 11px; color: rgba(255,255,255,0.5); text-transform: uppercase; letter-spacing: 0.1em; }
 
-  /* STATUS BAR */
-  .status-bar { background: var(--navy2); padding: 7px 48px; display: flex; align-items: center; gap: 8px; font-size: 11px; color: rgba(255,255,255,0.35); letter-spacing: 0.06em; }
-  .status-bar a { color: var(--gold); text-decoration: none; margin-left: auto; }
-  .status-bar a:hover { text-decoration: underline; }
+  /* MAIN NAV */
+  .main-nav { background: var(--navy2); padding: 0 48px; display: flex; align-items: flex-end; border-bottom: 0.5px solid rgba(255,255,255,0.08); }
+  .main-nav-tab { font-family: 'DM Sans', sans-serif; font-size: 12px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.1em; color: rgba(255,255,255,0.35); padding: 13px 20px 12px; cursor: pointer; border: none; border-bottom: 2px solid transparent; background: none; transition: color 0.15s, border-color 0.15s; white-space: nowrap; }
+  .main-nav-tab:hover { color: rgba(255,255,255,0.65); }
+  .main-nav-tab.active { color: var(--gold-lt); border-bottom: 2px solid var(--gold); }
+  .nav-right { margin-left: auto; display: flex; align-items: center; gap: 16px; padding: 8px 0; }
+  .nav-right span { font-size: 11px; color: rgba(255,255,255,0.3); letter-spacing: 0.06em; }
+  .nav-right a { font-size: 11px; color: var(--gold); text-decoration: none; }
+  .nav-right a:hover { text-decoration: underline; }
 
   /* FILTER BAR */
-  .filter-bar {
-    background: var(--white);
-    border-bottom: 0.5px solid var(--border2);
-    padding: 0 48px;
-    display: flex; align-items: stretch;
-    min-height: 58px; flex-wrap: wrap;
-  }
-  .filter-group {
-    display: flex; align-items: center; gap: 10px;
-    padding: 10px 24px 10px 0;
-    border-right: 0.5px solid var(--border2);
-    margin-right: 24px;
-  }
-  .filter-group:last-of-type { border-right: none; }
-  .filter-label {
-    font-size: 10px; font-weight: 500; text-transform: uppercase;
-    letter-spacing: 0.12em; color: var(--text3); white-space: nowrap;
-  }
-  .filter-select {
-    font-family: 'DM Sans', sans-serif; font-size: 13px; color: var(--text);
-    background: var(--cream);
-    border: 0.5px solid var(--border2); border-radius: 6px;
-    padding: 7px 30px 7px 11px; cursor: pointer; outline: none;
-    appearance: none; -webkit-appearance: none;
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%237A8A9A' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
-    background-repeat: no-repeat; background-position: right 10px center;
-    min-width: 170px; max-width: 230px;
-    transition: border-color 0.15s, box-shadow 0.15s;
-  }
+  .filter-bar { background: var(--white); border-bottom: 0.5px solid var(--border2); padding: 0 48px; display: flex; align-items: stretch; min-height: 56px; flex-wrap: wrap; }
+  .filter-group { display: flex; align-items: center; gap: 10px; padding: 8px 24px 8px 0; border-right: 0.5px solid var(--border2); margin-right: 24px; }
+  .filter-label { font-size: 10px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.12em; color: var(--text3); white-space: nowrap; }
+  .filter-select { font-family: 'DM Sans', sans-serif; font-size: 13px; color: var(--text); background: var(--cream); border: 0.5px solid var(--border2); border-radius: 6px; padding: 6px 28px 6px 10px; cursor: pointer; outline: none; appearance: none; -webkit-appearance: none; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='6'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%237A8A9A' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 10px center; min-width: 165px; max-width: 220px; transition: border-color 0.15s; }
   .filter-select:hover { border-color: var(--gold); }
   .filter-select:focus { border-color: var(--gold); box-shadow: 0 0 0 2px rgba(198,148,58,0.15); }
-
-  .filter-meta {
-    display: flex; align-items: center; gap: 12px;
-    margin-left: auto; padding: 10px 0;
-  }
+  .filter-meta { display: flex; align-items: center; gap: 12px; margin-left: auto; padding: 8px 0; }
   .filter-count { font-size: 11px; color: var(--text3); font-style: italic; }
-  .reset-btn {
-    font-family: 'DM Sans', sans-serif; font-size: 11px; font-weight: 500;
-    text-transform: uppercase; letter-spacing: 0.08em;
-    color: var(--text3); background: none;
-    border: 0.5px solid var(--border2); border-radius: 6px;
-    padding: 6px 14px; cursor: pointer; transition: all 0.15s; white-space: nowrap;
-  }
+  .reset-btn { font-family: 'DM Sans', sans-serif; font-size: 11px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.08em; color: var(--text3); background: none; border: 0.5px solid var(--border2); border-radius: 6px; padding: 5px 12px; cursor: pointer; transition: all 0.15s; }
   .reset-btn:hover { border-color: var(--gold); color: var(--gold); }
 
-  /* MAIN */
+  /* PAGES */
+  .page { display: none; }
+  .page.active { display: block; }
+
+  /* MAIN CONTENT AREA */
   .main { padding: 32px 48px 48px; }
 
   /* SECTION */
@@ -116,22 +86,45 @@
   .avg-val  { font-family: 'Playfair Display', serif; font-size: 28px; font-weight: 500; color: var(--text); }
   .avg-unit { font-size: 11px; color: var(--text3); margin-top: 4px; }
 
-  /* CHART CARD & TABLE */
-  .chart-card { background: var(--white); border: 0.5px solid var(--border); border-radius: 10px; padding: 22px 24px; }
-  .chart-title { font-family: 'Playfair Display', serif; font-size: 14px; font-weight: 500; color: var(--text); margin-bottom: 18px; padding-bottom: 12px; border-bottom: 0.5px solid var(--border2); }
-  .chart-wrap { position: relative; width: 100%; }
-  .charts-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  /* TABLE CARD */
+  .table-card { background: var(--white); border: 0.5px solid var(--border); border-radius: 10px; overflow: hidden; }
+  .table-card-head { padding: 16px 24px 14px; border-bottom: 0.5px solid var(--border2); display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+  .table-card-title { font-family: 'Playfair Display', serif; font-size: 15px; font-weight: 500; color: var(--text); }
+  .table-card-sub   { font-size: 11px; color: var(--text3); font-style: italic; }
+  .table-wrap { overflow-x: auto; }
 
+  /* SUMMARY TABLE */
   .summary-table { width: 100%; border-collapse: collapse; font-size: 13px; }
-  .summary-table th { font-size: 10px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text3); padding: 8px 12px; text-align: left; border-bottom: 1px solid var(--border2); background: var(--cream); }
+  .summary-table th { font-size: 10px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text3); padding: 9px 16px; text-align: left; background: var(--cream); border-bottom: 1px solid var(--border2); white-space: nowrap; }
   .summary-table th:last-child { text-align: right; }
-  .summary-table td { padding: 10px 12px; border-bottom: 0.5px solid var(--border); color: var(--text2); }
+  .summary-table td { padding: 11px 16px; border-bottom: 0.5px solid var(--border); color: var(--text2); }
   .summary-table td:last-child { text-align: right; font-family: 'Playfair Display', serif; font-size: 16px; color: var(--text); }
   .summary-table tr:last-child td { border-bottom: none; }
   .summary-table tr:hover td { background: var(--cream); }
 
+  /* BREAKDOWN TABLE (Tech Owner & Dev Team) */
+  .breakdown-table { width: 100%; border-collapse: collapse; font-size: 12.5px; min-width: 780px; }
+  .breakdown-table thead tr { background: var(--navy); }
+  .breakdown-table thead th { padding: 11px 16px; text-align: left; font-size: 10px; font-weight: 500; text-transform: uppercase; letter-spacing: 0.1em; color: rgba(255,255,255,0.5); white-space: nowrap; border: none; }
+  .breakdown-table thead th:first-child { color: rgba(255,255,255,0.9); min-width: 160px; }
+  .breakdown-table thead th:not(:first-child) { text-align: right; }
+  .breakdown-table tbody tr { border-bottom: 0.5px solid var(--border); }
+  .breakdown-table tbody tr:nth-child(even) { background: var(--cream); }
+  .breakdown-table tbody tr:hover td { background: #EDE8DC; }
+  .breakdown-table tbody td { padding: 11px 16px; color: var(--text2); vertical-align: middle; }
+  .breakdown-table tbody td:first-child { font-weight: 500; color: var(--text); }
+  .breakdown-table tbody td:not(:first-child) { text-align: right; }
+  .breakdown-table .num { font-family: 'Playfair Display', serif; font-size: 14px; color: var(--text); }
+  .breakdown-table .pct { font-size: 13px; color: var(--text2); }
+  .breakdown-table .hrs { font-size: 13px; color: var(--text2); }
+  .breakdown-table tfoot tr { background: var(--navy2); }
+  .breakdown-table tfoot td { padding: 11px 16px; font-weight: 500; color: rgba(255,255,255,0.75); font-size: 12.5px; border: none; }
+  .breakdown-table tfoot td:not(:first-child) { text-align: right; font-family: 'Playfair Display', serif; font-size: 14px; color: var(--gold-lt); }
+
+  .empty-row td { padding: 36px !important; text-align: center !important; color: var(--text3); font-size: 13px; font-style: italic; }
+
   /* ERROR */
-  .error-banner { background: var(--red-bg); border: 0.5px solid #FCA5A5; color: var(--red); padding: 14px 20px; border-radius: 8px; font-size: 13px; margin-bottom: 24px; display: none; line-height: 1.6; }
+  .error-banner { background: #FEE2E2; border: 0.5px solid #FCA5A5; color: var(--red); padding: 14px 20px; border-radius: 8px; font-size: 13px; margin-bottom: 24px; display: none; line-height: 1.6; }
 
   /* LOADING */
   .loading-screen { position: fixed; inset: 0; background: var(--navy); display: flex; flex-direction: column; align-items: center; justify-content: center; z-index: 999; transition: opacity 0.6s; }
@@ -147,13 +140,10 @@
   .footer p { font-size: 11px; color: rgba(255,255,255,0.25); letter-spacing: 0.06em; }
 
   /* RESPONSIVE */
-  @media (max-width: 1100px) {
-    .cards-4 { grid-template-columns: repeat(2,1fr); }
-    .charts-grid { grid-template-columns: 1fr; }
-  }
+  @media (max-width: 1100px) { .cards-4 { grid-template-columns: repeat(2,1fr); } }
   @media (max-width: 700px) {
-    .main, .header, .status-bar, .footer { padding-left: 16px; padding-right: 16px; }
-    .filter-bar { padding: 12px 16px; flex-direction: column; align-items: flex-start; gap: 10px; }
+    .main, .header, .footer, .filter-bar, .main-nav { padding-left: 16px; padding-right: 16px; }
+    .filter-bar { flex-direction: column; align-items: flex-start; gap: 10px; padding-top: 12px; padding-bottom: 12px; }
     .filter-group { border-right: none; padding: 0; margin: 0; }
     .filter-meta { margin-left: 0; }
     .cards-4 { grid-template-columns: repeat(2,1fr); }
@@ -163,6 +153,7 @@
 </head>
 <body>
 
+<!-- LOADING -->
 <div class="loading-screen" id="loader">
   <div class="brand">Product & Tech</div>
   <div class="sub">Executive Dashboard</div>
@@ -170,6 +161,7 @@
   <div class="msg" id="loaderMsg">Fetching live data…</div>
 </div>
 
+<!-- HEADER -->
 <div class="header">
   <div class="header-brand">
     <div class="dot"></div>
@@ -185,196 +177,177 @@
   </div>
 </div>
 
-<div class="status-bar">
-  <span id="statusMsg">Loading…</span>
-  <a href="https://docs.google.com/spreadsheets/d/1QntVLDgXonqk7gHe-MkHhZJC1hq9KzTPFHAVhH4m5DY/edit#gid=804363926" target="_blank">View Source Sheet ↗</a>
+<!-- MAIN NAV -->
+<div class="main-nav">
+  <button class="main-nav-tab active" onclick="switchPage('overview', this)">Overview</button>
+  <button class="main-nav-tab" onclick="switchPage('tech', this)">Tech Overview</button>
+  <div class="nav-right">
+    <span id="statusMsg">Loading…</span>
+    <a href="https://docs.google.com/spreadsheets/d/1QntVLDgXonqk7gHe-MkHhZJC1hq9KzTPFHAVhH4m5DY/edit#gid=804363926" target="_blank">View Source Sheet ↗</a>
+  </div>
 </div>
 
-<!-- ═══════════════════════════════════════════
-     FILTER BAR
-     3 filters: Month (Col AV), Client (Col AY), Owner (Col H)
-     To add a new filter: add a .filter-group, add a <select>,
-     call populateSelect() in buildFilters(),
-     and add condition in applyFilters()
-════════════════════════════════════════════ -->
+<!-- FILTER BAR -->
 <div class="filter-bar">
-
   <div class="filter-group">
     <span class="filter-label">Month</span>
     <select class="filter-select" id="filterMonth" onchange="applyFilters()">
       <option value="">All Months</option>
     </select>
   </div>
-
   <div class="filter-group">
     <span class="filter-label">Client Name</span>
     <select class="filter-select" id="filterClient" onchange="applyFilters()">
       <option value="">All Clients</option>
     </select>
   </div>
-
   <div class="filter-group">
     <span class="filter-label">Ticket Owner</span>
     <select class="filter-select" id="filterOwner" onchange="applyFilters()">
       <option value="">All Owners</option>
     </select>
   </div>
-
   <div class="filter-meta">
     <span class="filter-count" id="filterCount"></span>
     <button class="reset-btn" onclick="resetFilters()">Reset All</button>
   </div>
-
 </div>
 
-<div class="main">
-  <div class="error-banner" id="errorBanner"></div>
+<!-- ══════════════════════════════
+     PAGE 1: OVERVIEW
+══════════════════════════════ -->
+<div class="page active" id="page-overview">
+  <div class="main">
+    <div class="error-banner" id="errorBanner"></div>
 
-  <!-- SECTION 1: TICKET OVERVIEW -->
-  <div class="section">
-    <div class="section-head"><div class="tag">Ticket Overview</div><div class="line"></div></div>
-    <div class="cards cards-4">
-      <div class="card">
-        <div class="card-label">Tickets Created</div>
-        <div class="card-value" id="mTicketCreated">—</div>
-        <div class="card-sub">Excl. Vitthal Samant</div>
-      </div>
-      <div class="card gold">
-        <div class="card-label">Sev 1/2/3 Tickets</div>
-        <div class="card-value" id="mSev123">—</div>
-        <div class="card-sub">Mission Critical + Non-Severity</div>
-      </div>
-      <div class="card">
-        <div class="card-label">Sev 4 Tickets</div>
-        <div class="card-value" id="mSev4">—</div>
-        <div class="card-sub">Low severity</div>
-      </div>
-      <div class="card green">
-        <div class="card-label">Tickets Closed</div>
-        <div class="card-value" id="mClosed">—</div>
-        <div class="card-sub">Status = Closed</div>
+    <div class="section">
+      <div class="section-head"><div class="tag">Ticket Overview</div><div class="line"></div></div>
+      <div class="cards cards-4">
+        <div class="card"><div class="card-label">Tickets Created</div><div class="card-value" id="mTicketCreated">—</div><div class="card-sub">Excl. Vitthal Samant</div></div>
+        <div class="card gold"><div class="card-label">Sev 1/2/3 Tickets</div><div class="card-value" id="mSev123">—</div><div class="card-sub">Mission Critical + Non-Severity</div></div>
+        <div class="card"><div class="card-label">Sev 4 Tickets</div><div class="card-value" id="mSev4">—</div><div class="card-sub">Low severity</div></div>
+        <div class="card green"><div class="card-label">Tickets Closed</div><div class="card-value" id="mClosed">—</div><div class="card-sub">Status = Closed</div></div>
       </div>
     </div>
-  </div>
 
-  <!-- SECTION 2: ESCALATION -->
-  <div class="section">
-    <div class="section-head"><div class="tag">Escalation</div><div class="line"></div></div>
-    <div class="cards cards-4">
-      <div class="card red">
-        <div class="card-label">Escalated Tickets</div>
-        <div class="card-value" id="mEscalated">—</div>
-        <div class="card-sub">Sev 1/2/3 + BF = YES</div>
-      </div>
-      <div class="card">
-        <div class="card-label">Escalation %</div>
-        <div class="card-value" id="mEscPct">—</div>
-        <div class="card-sub">Escalated ÷ Sev 1/2/3</div>
-      </div>
-      <div class="card blue">
-        <div class="card-label">Raised to Tech</div>
-        <div class="card-value" id="mRaisedTech">—</div>
-        <div class="card-sub">Excl. Vitthal, Col AK not null</div>
-      </div>
-      <div class="card">
-        <div class="card-label">Tech Escalation %</div>
-        <div class="card-value" id="mTechEscPct">—</div>
-        <div class="card-sub">Escalated by Tech ÷ Raised Sev 1/2/3</div>
+    <div class="section">
+      <div class="section-head"><div class="tag">Escalation</div><div class="line"></div></div>
+      <div class="cards cards-4">
+        <div class="card red"><div class="card-label">Escalated Tickets</div><div class="card-value" id="mEscalated">—</div><div class="card-sub">Sev 1/2/3 + BF = YES</div></div>
+        <div class="card"><div class="card-label">Escalation %</div><div class="card-value" id="mEscPct">—</div><div class="card-sub">Escalated ÷ Sev 1/2/3</div></div>
+        <div class="card blue"><div class="card-label">Raised to Tech</div><div class="card-value" id="mRaisedTech">—</div><div class="card-sub">Excl. Vitthal, Col AK not null</div></div>
+        <div class="card"><div class="card-label">Tech Escalation %</div><div class="card-value" id="mTechEscPct">—</div><div class="card-sub">Escalated by Tech ÷ Raised Sev 1/2/3</div></div>
       </div>
     </div>
-  </div>
 
-  <!-- SECTION 3: RAISED TO TECH BREAKDOWN -->
-  <div class="section">
-    <div class="section-head"><div class="tag">Raised to Tech — Breakdown</div><div class="line"></div></div>
-    <div class="cards cards-4">
-      <div class="card gold">
-        <div class="card-label">Raised to Tech — Sev 1/2/3</div>
-        <div class="card-value" id="mRaisedSev123">—</div>
-        <div class="card-sub">Excl. Vitthal, AK not null, Sev 1/2/3</div>
-      </div>
-      <div class="card">
-        <div class="card-label">Raised to Tech — Sev 4</div>
-        <div class="card-value" id="mRaisedSev4">—</div>
-        <div class="card-sub">Excl. Vitthal, AK not null, Sev 4</div>
-      </div>
-      <div class="card green">
-        <div class="card-label">Resolved by Tech</div>
-        <div class="card-value" id="mResolvedTech">—</div>
-        <div class="card-sub">Excl. Vitthal, AK not null, AI col ≠ " -"</div>
-      </div>
-      <div class="card red">
-        <div class="card-label">Escalated by Tech</div>
-        <div class="card-value" id="mEscByTech">—</div>
-        <div class="card-sub">Excl. Vitthal, AK not null, Sev 1/2/3, BF=YES</div>
+    <div class="section">
+      <div class="section-head"><div class="tag">Raised to Tech — Breakdown</div><div class="line"></div></div>
+      <div class="cards cards-4">
+        <div class="card gold"><div class="card-label">Raised to Tech — Sev 1/2/3</div><div class="card-value" id="mRaisedSev123">—</div><div class="card-sub">Excl. Vitthal, AK not null, Sev 1/2/3</div></div>
+        <div class="card"><div class="card-label">Raised to Tech — Sev 4</div><div class="card-value" id="mRaisedSev4">—</div><div class="card-sub">Excl. Vitthal, AK not null, Sev 4</div></div>
+        <div class="card green"><div class="card-label">Resolved by Tech</div><div class="card-value" id="mResolvedTech">—</div><div class="card-sub">Excl. Vitthal, AK not null, AI col ≠ " -"</div></div>
+        <div class="card red"><div class="card-label">Escalated by Tech</div><div class="card-value" id="mEscByTech">—</div><div class="card-sub">Excl. Vitthal, AK not null, Sev 1/2/3, BF=YES</div></div>
       </div>
     </div>
-  </div>
 
-  <!-- SECTION 4: AVERAGE RESOLUTION TIMES -->
-  <div class="section">
-    <div class="section-head"><div class="tag">Average Resolution Times</div><div class="line"></div></div>
-    <div class="avg-row">
-      <div class="avg-item">
-        <div class="avg-lbl">Avg First Response on Ticket</div>
-        <div class="avg-val" id="mAvgFR">—</div>
-        <div class="avg-unit">hrs · Col AS</div>
-      </div>
-      <div class="avg-item">
-        <div class="avg-lbl">Ag Resolution on Ticket</div>
-        <div class="avg-val" id="mAvgAR">—</div>
-        <div class="avg-unit">hrs · Col AR</div>
-      </div>
-      <div class="avg-item">
-        <div class="avg-lbl">Avg Tech Resolution</div>
-        <div class="avg-val" id="mAvgAU">—</div>
-        <div class="avg-unit">hrs · Col AU</div>
+    <div class="section">
+      <div class="section-head"><div class="tag">Average Resolution Times</div><div class="line"></div></div>
+      <div class="avg-row">
+        <div class="avg-item"><div class="avg-lbl">Avg First Response on Ticket</div><div class="avg-val" id="mAvgFR">—</div><div class="avg-unit">hrs · Col AS</div></div>
+        <div class="avg-item"><div class="avg-lbl">Ag Resolution on Ticket</div><div class="avg-val" id="mAvgAR">—</div><div class="avg-unit">hrs · Col AR</div></div>
+        <div class="avg-item"><div class="avg-lbl">Avg Tech Resolution</div><div class="avg-val" id="mAvgAU">—</div><div class="avg-unit">hrs · Col AU</div></div>
       </div>
     </div>
-  </div>
 
-  <!-- SECTION 5: OTHER TICKET METRICS -->
-  <div class="section">
-    <div class="section-head"><div class="tag">Other Ticket Metrics</div><div class="line"></div></div>
-    <div class="chart-card">
-      <table class="summary-table">
-        <thead>
-          <tr><th>Metric</th><th>Definition</th><th>Count</th></tr>
-        </thead>
-        <tbody>
-          <tr><td>Reopen Tickets</td><td style="color:var(--text3);font-size:12px;">Sum of Column R</td><td id="mReopen">—</td></tr>
-          <tr><td>Bug Found</td><td style="color:var(--text3);font-size:12px;">Col O includes "Bug"</td><td id="mBug">—</td></tr>
-          <tr><td>Feature Request</td><td style="color:var(--text3);font-size:12px;">Col O includes "Feature Request"</td><td id="mFeature">—</td></tr>
-          <tr><td>Self Solve Tickets</td><td style="color:var(--text3);font-size:12px;">Col N includes "Self Solve"</td><td id="mSelfSolve">—</td></tr>
-        </tbody>
-      </table>
-    </div>
-  </div>
-
-  <!-- SECTION 6: VISUAL SUMMARY -->
-  <div class="section">
-    <div class="section-head"><div class="tag">Visual Summary</div><div class="line"></div></div>
-    <div class="charts-grid">
-      <div class="chart-card">
-        <div class="chart-title">Ticket severity split</div>
-        <div class="chart-wrap" style="height:220px;"><canvas id="chartSev"></canvas></div>
-        <div style="display:flex;gap:14px;margin-top:14px;flex-wrap:wrap;font-size:12px;color:var(--text3);">
-          <span style="display:flex;align-items:center;gap:5px;"><span style="width:10px;height:10px;background:#C6943A;border-radius:2px;display:inline-block;"></span>Sev 1/2/3</span>
-          <span style="display:flex;align-items:center;gap:5px;"><span style="width:10px;height:10px;background:#1E3A5F;border-radius:2px;display:inline-block;"></span>Sev 4</span>
-          <span style="display:flex;align-items:center;gap:5px;"><span style="width:10px;height:10px;background:#CBD5E1;border-radius:2px;display:inline-block;"></span>Others</span>
+    <div class="section">
+      <div class="section-head"><div class="tag">Other Ticket Metrics</div><div class="line"></div></div>
+      <div class="table-card">
+        <div class="table-wrap">
+          <table class="summary-table">
+            <thead><tr><th>Metric</th><th>Definition</th><th>Count</th></tr></thead>
+            <tbody>
+              <tr><td>Reopen Tickets</td><td style="color:var(--text3);font-size:12px;">Sum of Column R</td><td id="mReopen">—</td></tr>
+              <tr><td>Bug Found</td><td style="color:var(--text3);font-size:12px;">Col O includes "Bug"</td><td id="mBug">—</td></tr>
+              <tr><td>Feature Request</td><td style="color:var(--text3);font-size:12px;">Col O includes "Feature Request"</td><td id="mFeature">—</td></tr>
+              <tr><td>Self Solve Tickets</td><td style="color:var(--text3);font-size:12px;">Col N includes "Self Solve"</td><td id="mSelfSolve">—</td></tr>
+            </tbody>
+          </table>
         </div>
       </div>
-      <div class="chart-card">
-        <div class="chart-title">Ticket pipeline overview</div>
-        <div class="chart-wrap" style="height:220px;"><canvas id="chartPipeline"></canvas></div>
-      </div>
     </div>
+
+    <!-- ➕ ADD NEW OVERVIEW SECTIONS BELOW THIS LINE -->
   </div>
-
-  <!-- ➕ ADD NEW SECTIONS BELOW THIS LINE -->
-
 </div>
 
+<!-- ══════════════════════════════
+     PAGE 2: TECH OVERVIEW
+     Both tables stacked on same screen
+══════════════════════════════ -->
+<div class="page" id="page-tech">
+  <div class="main">
+
+    <!-- Tech Owner Table -->
+    <div class="section">
+      <div class="section-head"><div class="tag">Tech Owner — Performance Breakdown</div><div class="line"></div></div>
+      <div class="table-card">
+        <div class="table-card-head">
+          <span class="table-card-title">Tech Owner wise</span>
+          <span class="table-card-sub">Col AK · grouped by tech owner · filters apply</span>
+        </div>
+        <div class="table-wrap">
+          <table class="breakdown-table">
+            <thead>
+              <tr>
+                <th>Tech Owner</th>
+                <th>Raised to Tech<br>Sev 1/2/3</th>
+                <th>Raised to Tech<br>Sev 4</th>
+                <th>Resolved<br>by Tech</th>
+                <th>Escalated<br>by Tech</th>
+                <th>Tech<br>Escalation %</th>
+                <th>Avg Tech<br>Resolution (Hrs)</th>
+              </tr>
+            </thead>
+            <tbody id="techOwnerBody"><tr class="empty-row"><td colspan="7">Loading…</td></tr></tbody>
+            <tfoot id="techOwnerFoot"></tfoot>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- Dev Team Table -->
+    <div class="section">
+      <div class="section-head"><div class="tag">Dev Team — Performance Breakdown</div><div class="line"></div></div>
+      <div class="table-card">
+        <div class="table-card-head">
+          <span class="table-card-title">Dev Team wise</span>
+          <span class="table-card-sub">Col AN · grouped by dev team · filters apply</span>
+        </div>
+        <div class="table-wrap">
+          <table class="breakdown-table">
+            <thead>
+              <tr>
+                <th>Dev Team</th>
+                <th>Raised to Tech<br>Sev 1/2/3</th>
+                <th>Raised to Tech<br>Sev 4</th>
+                <th>Resolved<br>by Tech</th>
+                <th>Escalated<br>by Tech</th>
+                <th>Tech<br>Escalation %</th>
+                <th>Avg Tech<br>Resolution (Hrs)</th>
+              </tr>
+            </thead>
+            <tbody id="devTeamBody"><tr class="empty-row"><td colspan="7">Loading…</td></tr></tbody>
+            <tfoot id="devTeamFoot"></tfoot>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <!-- ➕ ADD NEW TECH OVERVIEW SECTIONS BELOW THIS LINE -->
+  </div>
+</div>
+
+<!-- FOOTER -->
 <div class="footer">
   <p>Confidential · For Executive Review Only</p>
   <p id="lastRefresh">—</p>
@@ -387,59 +360,62 @@ const GID        = '804363926';
 const REFRESH_MS = 5 * 60 * 1000;
 
 /* STATE */
-let ALL_ROWS      = [];
-let FILTERED_ROWS = [];
+let ALL_ROWS = [], FILTERED_ROWS = [];
+
+/* PAGE SWITCH */
+function switchPage(name, el) {
+  document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.main-nav-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('page-' + name).classList.add('active');
+  el.classList.add('active');
+}
 
 /* FETCH & PARSE */
 async function fetchCSV() {
-  const url  = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=csv&gid=${GID}`;
-  const resp = await fetch(url);
-  if (!resp.ok) throw new Error('Could not fetch sheet. Make sure it is public on the web.');
+  const resp = await fetch(`https://docs.google.com/spreadsheets/d/${SHEET_ID}/export?format=csv&gid=${GID}`);
+  if (!resp.ok) throw new Error('Could not fetch sheet. Ensure it is public on the web.');
   return resp.text();
 }
 
 function parseCSV(text) {
-  const lines   = text.trim().split('\n');
+  const lines = text.trim().split('\n');
   const headers = splitRow(lines[0]).map(h => h.trim());
   return lines.slice(1).filter(l => l.trim()).map(line => {
-    const vals = splitRow(line);
-    const obj  = {};
+    const vals = splitRow(line), obj = {};
     headers.forEach((h, i) => obj[h] = (vals[i] || '').trim());
     return obj;
   });
 }
 
 function splitRow(line) {
-  const out = []; let cur = ''; let q = false;
+  const out = []; let cur = '', q = false;
   for (const ch of line) {
-    if (ch === '"') { q = !q; }
+    if (ch === '"') q = !q;
     else if (ch === ',' && !q) { out.push(cur); cur = ''; }
     else cur += ch;
   }
   out.push(cur); return out;
 }
 
-/* COLUMN GETTERS — update these if sheet column names change */
-const get         = (row, key) => { if (row[key] !== undefined) return row[key]; const k = Object.keys(row).find(r => r.toLowerCase().includes(key.toLowerCase())); return k ? row[k] : ''; };
-const getTicketId = r => get(r, 'Ticket Id') || get(r, 'Ticket ID');
-const getPriority = r => get(r, 'Priority (Ticket)') || get(r, 'Priority');
-const getOwner    = r => get(r, 'Ticket Owner');
-const getStatus   = r => get(r, 'Status (Ticket)') || get(r, 'Status');
+/* COLUMN GETTERS */
+const get = (row, key) => { if (row[key] !== undefined) return row[key]; const k = Object.keys(row).find(r => r.toLowerCase().includes(key.toLowerCase())); return k ? row[k] : ''; };
+const getTicketId     = r => get(r, 'Ticket Id') || get(r, 'Ticket ID');
+const getPriority     = r => get(r, 'Priority (Ticket)') || get(r, 'Priority');
+const getOwner        = r => get(r, 'Ticket Owner');
+const getStatus       = r => get(r, 'Status (Ticket)') || get(r, 'Status');
 const getTicketType   = r => get(r, 'Ticket Type');
 const getIssueClass   = r => get(r, 'Issue Classification');
 const getReopen       = r => get(r, 'Number of Reopen');
-const getRaisedTech   = r => get(r, 'Raised to Tech');
+const getRaisedTech   = r => get(r, 'Raised to Tech');       // Col AK
+const getDevTeam      = r => get(r, 'Dev Team');              // Col AN
 const getResolvedTech = r => get(r, 'Resolved by Tech');
 const getIsEscalated  = r => get(r, 'Is Escalated');
 const getColAS        = r => get(r, 'New First Response Time in Hrs') || get(r, 'First Response Time in Business Hours');
 const getColAR        = r => get(r, 'New Resolution time(in hrs)') || get(r, 'Resolution time to convert in hrs');
 const getColAU        = r => get(r, 'New Resolution by Tech Team(in hours)');
-
-/* FILTER COLUMN GETTERS
-   Col AV = Month | Col AY = New Client Name | Col H = Ticket Owner */
-const getMonth      = r => get(r, 'Month');
-const getClientName = r => get(r, 'New Client Name') || get(r, 'Client Name');
-const getOwnerCol   = r => get(r, 'Ticket Owner');
+const getMonth        = r => get(r, 'Month');
+const getClientName   = r => get(r, 'New Client Name') || get(r, 'Client Name');
+const getOwnerCol     = r => get(r, 'Ticket Owner');
 
 /* METRIC HELPERS */
 const SEV123 = ['sev 3 - non-mission', 'sev 1 - mission critical', 'sev 2 -non-severity', 'sev 2 - non-severity'];
@@ -449,53 +425,40 @@ const isVitthal   = r => getOwner(r).toLowerCase().includes('vitthal samant');
 const isAKnotNull = r => { const v = getRaisedTech(r).trim().toLowerCase(); return v && v !== '-' && v !== 'no' && v !== 'false'; };
 const isBFyes     = r => { const v = getIsEscalated(r).trim().toLowerCase(); return v === 'yes' || v === 'true' || v === '1'; };
 const num         = v => { const n = parseFloat(v); return isNaN(n) ? 0 : n; };
-const avg         = arr => arr.length ? arr.reduce((a,b)=>a+b,0)/arr.length : 0;
+const avgArr      = arr => arr.length ? arr.reduce((a,b)=>a+b,0)/arr.length : 0;
+const fmtPct      = (a,b) => b > 0 ? (a/b*100).toFixed(1)+'%' : '—';
+const fmtAvg      = arr => arr.length ? avgArr(arr).toFixed(1) : '—';
 
-/* BUILD FILTER DROPDOWNS from real sheet data */
+/* FILTERS */
 function buildFilters() {
-  /* Month — sort chronologically if possible, else alphabetically */
   const months = [...new Set(ALL_ROWS.map(r => getMonth(r)).filter(Boolean))];
-  const monthOrder = ['January','February','March','April','May','June','July','August','September','October','November','December'];
-  months.sort((a, b) => {
-    const ai = monthOrder.findIndex(m => a.toLowerCase().includes(m.toLowerCase()));
-    const bi = monthOrder.findIndex(m => b.toLowerCase().includes(m.toLowerCase()));
-    if (ai !== -1 && bi !== -1) return ai - bi;
-    return a.localeCompare(b);
-  });
+  const mo = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+  months.sort((a,b) => { const ai=mo.findIndex(m=>a.toLowerCase().includes(m.toLowerCase())), bi=mo.findIndex(m=>b.toLowerCase().includes(m.toLowerCase())); return (ai!==-1&&bi!==-1)?ai-bi:a.localeCompare(b); });
   populateSelect('filterMonth',  months);
   populateSelect('filterClient', [...new Set(ALL_ROWS.map(r => getClientName(r)).filter(Boolean))].sort());
   populateSelect('filterOwner',  [...new Set(ALL_ROWS.map(r => getOwnerCol(r)).filter(Boolean))].sort());
 }
 
 function populateSelect(id, values) {
-  const sel = document.getElementById(id);
-  const cur = sel.value;
+  const sel = document.getElementById(id), cur = sel.value;
   while (sel.options.length > 1) sel.remove(1);
   values.forEach(v => { const o = document.createElement('option'); o.value = v; o.textContent = v; sel.appendChild(o); });
   if (values.includes(cur)) sel.value = cur;
 }
 
-/* APPLY FILTERS — called on every dropdown change */
 function applyFilters() {
-  const month  = document.getElementById('filterMonth').value;
-  const client = document.getElementById('filterClient').value;
-  const owner  = document.getElementById('filterOwner').value;
-
+  const month = document.getElementById('filterMonth').value;
+  const client= document.getElementById('filterClient').value;
+  const owner = document.getElementById('filterOwner').value;
   FILTERED_ROWS = ALL_ROWS.filter(r => {
-    if (month  && getMonth(r)       !== month)  return false;
-    if (client && getClientName(r)  !== client) return false;
-    if (owner  && getOwnerCol(r)    !== owner)  return false;
+    if (month  && getMonth(r)      !== month)  return false;
+    if (client && getClientName(r) !== client) return false;
+    if (owner  && getOwnerCol(r)   !== owner)  return false;
     return true;
   });
-
-  const isFiltered = month || client || owner;
-  document.getElementById('filterCount').textContent = isFiltered
-    ? `Showing ${FILTERED_ROWS.length.toLocaleString()} of ${ALL_ROWS.length.toLocaleString()} records`
-    : '';
-
-  const m = computeMetrics(FILTERED_ROWS);
-  renderMetrics(m);
-  renderCharts(m);
+  document.getElementById('filterCount').textContent = (month||client||owner)
+    ? `Showing ${FILTERED_ROWS.length.toLocaleString()} of ${ALL_ROWS.length.toLocaleString()} records` : '';
+  renderAll(FILTERED_ROWS);
 }
 
 function resetFilters() {
@@ -503,32 +466,96 @@ function resetFilters() {
   applyFilters();
 }
 
-/* COMPUTE METRICS */
+/* COMPUTE OVERALL METRICS */
 function computeMetrics(rows) {
-  const ticketCreated = rows.filter(r => getTicketId(r) && !isVitthal(r)).length;
-  const sev123        = rows.filter(r => isSev123(r)).length;
-  const sev4          = rows.filter(r => isSev4(r)).length;
-  const closed        = rows.filter(r => getStatus(r).toLowerCase().includes('closed')).length;
-  const escalated     = rows.filter(r => isSev123(r) && isBFyes(r)).length;
-  const escPct        = sev123 > 0 ? (escalated/sev123*100).toFixed(1)+'%' : '—';
-  const raisedTech    = rows.filter(r => getTicketId(r) && !isVitthal(r) && isAKnotNull(r)).length;
-  const raisedSev123  = rows.filter(r => getTicketId(r) && !isVitthal(r) && isAKnotNull(r) && isSev123(r)).length;
-  const raisedSev4    = rows.filter(r => getTicketId(r) && !isVitthal(r) && isAKnotNull(r) && isSev4(r)).length;
-  const resolvedTech  = rows.filter(r => getTicketId(r) && !isVitthal(r) && isAKnotNull(r) && getResolvedTech(r).trim() !== '-' && getResolvedTech(r).trim() !== '').length;
-  const escByTech     = rows.filter(r => getTicketId(r) && !isVitthal(r) && isAKnotNull(r) && isSev123(r) && isBFyes(r)).length;
-  const techEscPct    = raisedSev123 > 0 ? (escByTech/raisedSev123*100).toFixed(1)+'%' : '—';
-  const avgFR         = avg(rows.map(r => num(getColAS(r))).filter(v => v > 0)).toFixed(1);
-  const avgAR         = avg(rows.map(r => num(getColAR(r))).filter(v => v > 0)).toFixed(1);
-  const avgAU         = avg(rows.map(r => num(getColAU(r))).filter(v => v > 0)).toFixed(1);
-  const reopen        = Math.round(rows.reduce((a, r) => a + num(getReopen(r)), 0));
-  const bugFound      = rows.filter(r => getIssueClass(r).toLowerCase().includes('bug')).length;
-  const featureReq    = rows.filter(r => getIssueClass(r).toLowerCase().includes('feature request')).length;
-  const selfSolve     = rows.filter(r => getTicketType(r).toLowerCase().includes('self solve')).length;
-  const others        = Math.max(0, rows.length - sev123 - sev4);
-  return { ticketCreated, sev123, sev4, closed, escalated, escPct, raisedTech, raisedSev123, raisedSev4, resolvedTech, escByTech, techEscPct, avgFR, avgAR, avgAU, reopen, bugFound, featureReq, selfSolve, others, total: rows.length };
+  const sev123      = rows.filter(r => isSev123(r)).length;
+  const raisedS123  = rows.filter(r => getTicketId(r) && !isVitthal(r) && isAKnotNull(r) && isSev123(r)).length;
+  const escByTech   = rows.filter(r => getTicketId(r) && !isVitthal(r) && isAKnotNull(r) && isSev123(r) && isBFyes(r)).length;
+  const escalated   = rows.filter(r => isSev123(r) && isBFyes(r)).length;
+  return {
+    ticketCreated: rows.filter(r => getTicketId(r) && !isVitthal(r)).length,
+    sev123, sev4: rows.filter(r => isSev4(r)).length,
+    closed: rows.filter(r => getStatus(r).toLowerCase().includes('closed')).length,
+    escalated, escPct: fmtPct(escalated, sev123),
+    raisedTech: rows.filter(r => getTicketId(r) && !isVitthal(r) && isAKnotNull(r)).length,
+    raisedSev123: raisedS123,
+    raisedSev4: rows.filter(r => getTicketId(r) && !isVitthal(r) && isAKnotNull(r) && isSev4(r)).length,
+    resolvedTech: rows.filter(r => getTicketId(r) && !isVitthal(r) && isAKnotNull(r) && getResolvedTech(r).trim() !== '-' && getResolvedTech(r).trim() !== '').length,
+    escByTech, techEscPct: fmtPct(escByTech, raisedS123),
+    avgFR: fmtAvg(rows.map(r => num(getColAS(r))).filter(v => v > 0)),
+    avgAR: fmtAvg(rows.map(r => num(getColAR(r))).filter(v => v > 0)),
+    avgAU: fmtAvg(rows.map(r => num(getColAU(r))).filter(v => v > 0)),
+    reopen: Math.round(rows.reduce((a,r) => a+num(getReopen(r)),0)),
+    bugFound: rows.filter(r => getIssueClass(r).toLowerCase().includes('bug')).length,
+    featureReq: rows.filter(r => getIssueClass(r).toLowerCase().includes('feature request')).length,
+    selfSolve: rows.filter(r => getTicketType(r).toLowerCase().includes('self solve')).length,
+  };
 }
 
-/* RENDER METRICS */
+/* COMPUTE GROUP METRICS (shared logic) */
+function computeGroupMetrics(groupRows) {
+  const raisedSev123   = groupRows.filter(r => isSev123(r)).length;
+  const raisedSev4     = groupRows.filter(r => isSev4(r)).length;
+  const resolvedByTech = groupRows.filter(r => getResolvedTech(r).trim() !== '-' && getResolvedTech(r).trim() !== '').length;
+  const escByTech      = groupRows.filter(r => isSev123(r) && isBFyes(r)).length;
+  return { raisedSev123, raisedSev4, resolvedByTech, escByTech, techEscPct: fmtPct(escByTech, raisedSev123), avgTechRes: fmtAvg(groupRows.map(r => num(getColAU(r))).filter(v => v > 0)) };
+}
+
+/* GROUP BY TECH OWNER (Col AK) */
+function groupByTechOwner(rows) {
+  const techRows = rows.filter(r => isAKnotNull(r) && !isVitthal(r));
+  return [...new Set(techRows.map(r => getRaisedTech(r)).filter(Boolean))].sort()
+    .map(name => ({ name, ...computeGroupMetrics(techRows.filter(r => getRaisedTech(r) === name)) }));
+}
+
+/* GROUP BY DEV TEAM (Col AN) */
+function groupByDevTeam(rows) {
+  const techRows = rows.filter(r => isAKnotNull(r) && !isVitthal(r));
+  return [...new Set(techRows.map(r => getDevTeam(r)).filter(Boolean))].sort()
+    .map(name => ({ name, ...computeGroupMetrics(techRows.filter(r => getDevTeam(r) === name)) }));
+}
+
+/* RENDER BREAKDOWN TABLE */
+function renderBreakdownTable(rows, bodyId, footId, groupFn) {
+  const data  = groupFn(rows);
+  const tbody = document.getElementById(bodyId);
+  const tfoot = document.getElementById(footId);
+
+  if (!data.length) {
+    tbody.innerHTML = `<tr class="empty-row"><td colspan="7">No data found for current filter selection.</td></tr>`;
+    tfoot.innerHTML = ''; return;
+  }
+
+  tbody.innerHTML = data.map(d => `
+    <tr>
+      <td>${d.name}</td>
+      <td class="num">${d.raisedSev123.toLocaleString()}</td>
+      <td class="num">${d.raisedSev4.toLocaleString()}</td>
+      <td class="num">${d.resolvedByTech.toLocaleString()}</td>
+      <td class="num">${d.escByTech.toLocaleString()}</td>
+      <td class="pct">${d.techEscPct}</td>
+      <td class="hrs">${d.avgTechRes}</td>
+    </tr>`).join('');
+
+  const techRows = rows.filter(r => isAKnotNull(r) && !isVitthal(r));
+  const totR123  = data.reduce((a,d)=>a+d.raisedSev123,0);
+  const totR4    = data.reduce((a,d)=>a+d.raisedSev4,0);
+  const totRes   = data.reduce((a,d)=>a+d.resolvedByTech,0);
+  const totEsc   = data.reduce((a,d)=>a+d.escByTech,0);
+
+  tfoot.innerHTML = `
+    <tr>
+      <td>Total / Overall</td>
+      <td>${totR123.toLocaleString()}</td>
+      <td>${totR4.toLocaleString()}</td>
+      <td>${totRes.toLocaleString()}</td>
+      <td>${totEsc.toLocaleString()}</td>
+      <td>${fmtPct(totEsc, totR123)}</td>
+      <td>${fmtAvg(techRows.map(r=>num(getColAU(r))).filter(v=>v>0))}</td>
+    </tr>`;
+}
+
+/* RENDER OVERALL METRICS */
 function renderMetrics(m) {
   const $ = id => document.getElementById(id);
   $('mTicketCreated').textContent = m.ticketCreated.toLocaleString();
@@ -552,24 +579,11 @@ function renderMetrics(m) {
   $('mSelfSolve').textContent     = m.selfSolve.toLocaleString();
 }
 
-/* CHARTS */
-let chartSevInst, chartPipelineInst;
-function renderCharts(m) {
-  if (chartSevInst)      chartSevInst.destroy();
-  if (chartPipelineInst) chartPipelineInst.destroy();
-  chartSevInst = new Chart(document.getElementById('chartSev'), {
-    type: 'doughnut',
-    data: { labels: ['Sev 1/2/3','Sev 4','Others'], datasets: [{ data: [m.sev123, m.sev4, m.others], backgroundColor: ['#C6943A','#1E3A5F','#CBD5E1'], borderWidth: 0 }] },
-    options: { responsive: true, maintainAspectRatio: false, cutout: '72%', plugins: { legend: { display: false } } }
-  });
-  chartPipelineInst = new Chart(document.getElementById('chartPipeline'), {
-    type: 'bar',
-    data: {
-      labels: ['Created','Closed','Escalated','Raised to Tech','Resolved by Tech','Bug Found','Feature Req'],
-      datasets: [{ data: [m.ticketCreated, m.closed, m.escalated, m.raisedTech, m.resolvedTech, m.bugFound, m.featureReq], backgroundColor: ['#0B1829','#166534','#DC2626','#1E3A5F','#16A34A','#C6943A','#92400E'], borderRadius: 4, borderWidth: 0 }]
-    },
-    options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { x: { grid: { display: false }, ticks: { font: { size: 10 }, maxRotation: 35, autoSkip: false } }, y: { grid: { color: 'rgba(0,0,0,0.04)' }, ticks: { font: { size: 11 } } } } }
-  });
+/* RENDER ALL */
+function renderAll(rows) {
+  renderMetrics(computeMetrics(rows));
+  renderBreakdownTable(rows, 'techOwnerBody', 'techOwnerFoot', groupByTechOwner);
+  renderBreakdownTable(rows, 'devTeamBody',   'devTeamFoot',   groupByDevTeam);
 }
 
 /* MAIN INIT */
@@ -585,11 +599,11 @@ async function fetchAndRender() {
     const now = new Date();
     document.getElementById('reportDate').textContent  = now.toLocaleDateString('en-IN', { day:'2-digit', month:'long', year:'numeric' });
     document.getElementById('lastRefresh').textContent = 'Refreshed at ' + now.toLocaleTimeString('en-IN');
-    document.getElementById('statusMsg').textContent   = `Live · ${ALL_ROWS.length.toLocaleString()} records loaded`;
+    document.getElementById('statusMsg').textContent   = `Live · ${ALL_ROWS.length.toLocaleString()} records`;
     const loader = document.getElementById('loader');
     loader.style.opacity = '0';
     setTimeout(() => loader.style.display = 'none', 600);
-  } catch (err) {
+  } catch(err) {
     document.getElementById('loader').style.display = 'none';
     const b = document.getElementById('errorBanner');
     b.style.display = 'block';
